@@ -1,0 +1,76 @@
+// FONT SETUP
+// ===========================================
+$fonts:(
+  droid:(
+    name: '"Droid Sans", Arial, Helvetica, sans-serif',
+    active: true,
+    src-mode: web,
+    src-local: "",
+    src-web: "https://fonts.googleapis.com/css?family=Droid+Sans:400,700"
+  ),
+  
+  droid-serif:(
+    name: '"Droid Serif", Georgia, serif, Times',
+    active: true,
+    src-mode: web,
+    src-local: "",
+    src-web: "https://fonts.googleapis.com/css?family=Droid+Serif:400,400italic,700,700italic"
+  ),
+
+  themify:(
+    name: "themify",
+    active: true,
+    src-mode: local,
+    src-local: "../fonts/themify/themify.css",
+    src-web: "",
+  ),
+
+  font-awesome:(
+    name: "FontAwesome",
+    active: true,
+    src-mode: local,
+    src-local: "../fonts/font-awesome/font-awesome.min.css",
+    src-web: "http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css",
+  ),
+
+);
+
+// SETUP
+// -----------------------------------------
+@each $font, $vals in $fonts {
+  @if (map-get($vals, active)) {
+    $mode: map-get($vals, src-mode);
+    $src-web: map-get($vals, src-web);
+    $src-local: map-get($vals, src-local);
+
+    @if $mode == 'web' {
+      @import url($src-web);
+    } 
+    @elseif $mode == 'local' {
+      @import url($src-local);
+    }
+  }
+}
+
+
+// MIXIN
+// -----------------------------------------
+@mixin font-style($font, $size, $weight) {
+  font:map-get($font, $weight) #{$size} map-get($font, name); 
+}
+
+@function font-fam($name) {
+  @return unquote(map-get(map-get($fonts, $name), name));
+}
+
+// FONT CLASSES
+// -----------------------------------------
+@mixin font-class($name, $font) {
+  .#{$name} {
+    font-family: $font;
+  }
+}
+
+
+
+

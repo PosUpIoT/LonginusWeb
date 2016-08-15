@@ -1,0 +1,30 @@
+// VARIABLES
+// -----------------------------------
+$font-size: 14px;
+$font-size-xs: 12px;
+$line-h: 1.7;
+$margin-b: 20px;
+$img-dir: "../../images/";
+$z-overlay:0;
+$z-content:100;
+$z-modals:10000;
+$z-controls:200;
+$z-apex:10000;
+$z-nav: 300;
+$brand-w: 160px;
+$border-r: 0;
+
+$font-brand: font-fam(droid-serif);
+$font-body: font-fam(droid);
+$font-btn: font-fam(droid);
+$font-title: font-fam(droid);
+$font-subtitle: font-fam(droid);
+$font-nav: font-fam(droid);
+
+$font-classes:(
+  font-brand: $font-brand,
+  font-body: $font-body,
+  font-btn: $font-btn,
+  font-title: $font-title,
+  font-subtitle: $font-subtitle,
+);

@@ -1,0 +1,621 @@
+/* LAYOUT
+---------------------------------- */
+.hidden {display: none}
+.dsp-block { display:block}
+.dsp-inblock { display: inline-block}
+.dsp-inline { display: inline}
+.dsp-table { display: table}
+.v-mid { vertical-align: middle;}
+.v-top { vertical-align: top;}
+.v-bot { vertical-align: bottom;}
+
+.tblock {
+  display: table; 
+}
+
+.tcell {
+  display: table-cell;
+  height: 100%;
+  vertical-align: middle; 
+}
+
+.valigner {
+  display:table;
+  width:100%; height:100%;
+  
+  > * {
+    display: table-cell;
+    width:100%; height:100%;
+  }
+}
+
+.cell-max { width:100%;}
+.cell-min { white-space: nowrap;}
+.no-wrap {white-space: nowrap; }
+.del-space { 
+  font-size:0;
+  > * {
+    font-size: 1rem;
+  } 
+}
+
+.visible-sm-tcell {
+  display: none;
+  
+  @media (max-width:991px) {
+    display: table-cell;
+  }
+}
+
+.visible-xs-tcell {
+  display: none;
+  
+  @media (max-width:767px) {
+    display: table-cell;
+  }
+}
+
+.visible-xs-table {
+  display: none;
+  
+  @media (max-width:767px) {
+    display: table;
+  }
+}
+
+.visible-xs-iblock {
+  display: none;
+  
+  @media (max-width:767px) {
+    display: inline-block;
+  }
+}
+
+.visible-xs-inline {
+  display: none;
+  
+  @media (max-width:767px) {
+    display: inline;
+  }
+}
+
+/* FONT WEIGHTS
+------------------------------------ */
+.fw-normal { font-weight: normal}
+.fw-bold { font-weight: bold }
+.fw-lighter { font-weight: lighter }
+.fw-bolder { font-weight: bolder}
+.fw-300 { font-weight: 300}
+.fw-900 { font-weight: 900}
+
+/* FONT SIZES
+------------------------------------ */
+$fs: 80 90 100 110 120 130 150 200 250 300 350 400 500;
+$fs-xs: 80 90 100 110 120 130 150 200 250 300 350 400 500;
+
+@for $i from 1 through length($fs) {
+  $val: nth($fs, $i);
+  .fs-#{$val} {
+    font-size: $val * 1%;
+  }
+}
+
+@media (max-width:767px) {
+  @for $i from 1 through length($fs-xs) {
+    $val: nth($fs-xs, $i);
+    .fs-xs-#{$val} {
+      font-size: $val * 1%;
+    }
+  }
+}
+
+/* LINE HEIGHTS
+------------------------------------ */
+$lh: 100 140 150 200;
+
+@for $i from 1 through length($lh) {
+  $val: nth($lh, $i);
+  .lh-#{$val} {
+    line-height: $val * 1%;
+  }
+}
+
+/* LETTER SPACING
+------------------------------------ */
+.lsp-xs { letter-spacing: 0.1em}
+.lsp-sm { letter-spacing: 0.2em}
+.lsp-md { letter-spacing: 0.4em}
+
+/* POSITIONING
+------------------------------------ */
+.pos-stat {position:static}
+.pos-rel {position:relative}
+.pas-abs, [class *='pos-abs'] {position:absolute}
+
+.pos-midx, .pos-abs-tc, .pos-abs-tc-10, .pos-abs-tc-20, .pos-abs-bc, .pos-abs-bc-10, .pos-abs-bc-20 {margin-left:auto; margin-right:auto}
+.pos-midy {margin-top: auto; margin-bottom: auto}
+
+.pos-abs-tl {top:0; left:0}
+.pos-abs-tl-10 {top:10px; left:10px}
+.pos-abs-tl-20 {top:20px; left:20px}
+.pos-abs-tr {top:0;right:0}
+.pos-abs-tr-10 {top:10px;right:10px}
+.pos-abs-tr-20 {top:20px;right:20px}
+.pos-abs-bl {bottom:0; left:0}
+.pos-abs-bl-10 {bottom:10px; left:10px}
+.pos-abs-bl-20 {bottom:20px; left:20px}
+.pos-abs-br {bottom:0;right:0}
+.pos-abs-br-10 {bottom:10px;right:10px}
+.pos-abs-br-20 {bottom:20px;right:20px}
+.pos-abs-tc, .pos-abs-tc-10, .pos-abs-tc-20, .pos-abs-bc, .pos-abs-bc-10, .pos-abs-bc-20 { left:0;right:0}
+.pos-abs-tc, .pos-abs-tc-10, .pos-abs-tc-20  {top:0; bottom:auto }
+.pos-abs-tc-10 {top:10px}
+.pos-abs-tc-20 {top:20px}
+.pos-abs-bc, .pos-abs-bc-10, .pos-abs-bc-20  {bottom:0; top: auto}
+.pos-abs-bc-10 {bottom:10px}
+.pos-abs-bc-20 {bottom:20px}
+.pos-abs-cc { top:0;bottom:0;left:0;right:0;margin:auto;}
+.pos-abs-lc, .pos-abs-lc-10, .pos-abs-lc-20,{top:0;bottom:0;left:0; margin:auto 0;}
+.pos-abs-rc, .pos-abs-rc-10, .pos-abs-rc-20,{top:0;bottom:0;right:0; margin:auto 0;}
+.pos-abs-rc-10 { right:10px}
+.pos-abs-rc-20 { right:20px}
+.pos-abs-lc-10 { left:10px}
+.pos-abs-lc-20 { left:20px}
+
+/* TYPE
+------------------------------------ */
+.case-u {text-transform: uppercase;}
+.case-c {text-transform: capitalize;}
+.case-l {text-transform: lowercase;}
+.case-n {text-transform: none;}
+.italic {font-style: italic !important}
+
+.text-center { text-align: center;}
+.text-right { text-align: right;}
+.text-left {text-align: left;}
+
+@media (max-width:991px) {
+  .text-center-sm {text-align: center}
+  .text-left-sm {text-align: left}
+  .text-right-sm {text-align: right}
+}
+
+@media (max-width:767px) {
+  .text-center-xs {text-align: center}
+  .text-left-xs {text-align: left}
+  .text-right-xs {text-align: right}
+}
+
+/* BORDERS
+------------------------------------ */
+.bd-all { border:1px solid rgba(#000, 0.15);}
+.bd-none { border:none;}
+.bd-b { border-bottom:1px solid rgba(#000, 0.15);}
+.bd-t { border-top:1px solid rgba(#000, 0.15);}
+.bd-r { border-right:1px solid rgba(#000, 0.15);}
+.bd-l { border-left:1px solid rgba(#000, 0.15);}
+
+/* WIDTHS
+------------------------------------ */
+$wpc: 20 30 33 50 70 80 90;
+$wpx: 60 80 100 150 200;
+
+.fullw, .wpc-100 {width:100%;}
+.fillbox {width:100%; height:100%}
+.max-w {max-width:100%; height:auto}
+.grid-img, .img-grid img { display:block; width:100%;height:auto;max-width: none}
+
+@for $i from 1 through length($wpc) {
+  $val: nth($wpc, $i);
+  .wpc-#{$val} {
+    width: $val * 1%;
+  }
+}
+
+@for $i from 1 through length($wpx) {
+  $val: nth($wpx, $i);
+  .wpx-#{$val} {
+    width: $val * 1px;
+  }
+}
+
+@media (max-width:767px) {
+
+ .fullw-xs {width:100%;} 
+ 
+  @for $i from 1 through length($wpc) {
+    $val: nth($wpc, $i);
+    .wpc-xs-#{$val} {
+      width: $val * 1%;
+    }
+  }
+  
+  @for $i from 1 through length($wpx) {
+    $val: nth($wpx, $i);
+    .wpx-xs-#{$val} {
+      width: $val * 1px;
+    }
+  }
+}
+
+/* MARGINS 
+------------------------------------ */
+$mgs-b: 3 5 6 7 10 15 20 30 40 50 60;
+$mgs-y: 3 5 10 15 20 30;
+$mgs-x: 3 5 10 15 20 30;
+$mgs-b-xs: 5 10 15 30 40 60;
+$mgs-r: 5 7 10 15;
+$mgs-l: 5 7 10 15;
+
+.no-mg {margin:0}
+.no-mgt {margin-top: 0}
+.no-mgb {margin-bottom: 0}
+
+@for $i from 1 through length($mgs-r) {
+  $val: nth($mgs-r, $i);
+  .mgr-#{$val}, .mgr-all-#{$val} > * {
+    margin-right: #{$val}px;
+  }
+}
+
+@for $i from 1 through length($mgs-l) {
+  $val: nth($mgs-l, $i);
+  .mgl-#{$val}, .mgl-all-#{$val} > * {
+    margin-left: #{$val}px;
+  }
+}
+
+@for $i from 1 through length($mgs-y) {
+  $val: nth($mgs-y, $i);
+  .mgy-#{$val}, .mgy-all-#{$val} > * {
+    margin-bottom: #{$val}px;
+    margin-top: #{$val}px;
+  }
+}
+
+@for $i from 1 through length($mgs-x) {
+  $val: nth($mgs-x, $i);
+  .mgx-#{$val}, .mgx-all-#{$val} > * {
+    margin-right: #{$val}px;
+    margin-left: #{$val}px;
+  }
+}
+
+@for $i from 1 through length($mgs-b) {
+  $val: nth($mgs-b, $i);
+  .mgb-#{$val}, .mgb-all-#{$val} > * {
+    margin-bottom: #{$val}px;
+  }
+}
+
+@media (max-width:767px) {
+  .no-mg-xs {margin:0}
+  .no-mgt-xs {margin-top: 0}
+  .no-mgb-xs {margin-bottom: 0}
+
+  @for $i from 1 through length($mgs-b-xs) {
+    $val: nth($mgs-b-xs, $i);
+    .mgb-#{$val}-xs, .mgb-#{$val}-all-xs > * {
+      margin-bottom: #{$val}px;
+    }
+  }
+}
+
+/* PADDINGS 
+------------------------------------ */
+$pads: 5 10 15 20 30 40 50 60;
+$pady: 5 10 15 20 30;
+$padx: 5 10 15 20 30;
+$pads-xs: 5 10 20 30;
+
+@for $i from 1 through length($pads) {
+  $val: nth($pads, $i);
+  .pad-#{$val}, .pad-all-#{$val} > * {
+    padding: #{$val}px;
+  }
+}
+
+@for $i from 1 through length($pady) {
+  $val: nth($pady, $i);
+  .pady-#{$val}, .pady-#{$val}-all > * {
+    padding-top: #{$val}px;
+    padding-bottom: #{$val}px;
+  }
+}
+
+@for $i from 1 through length($padx) {
+  $val: nth($pady, $i);
+  .padx-#{$val}, .padx-#{$val}-all > * {
+    padding-left: #{$val}px;
+    padding-right: #{$val}px;
+  }
+}
+
+@media (max-width:767px) {
+  @for $i from 1 through length($pads-xs) {
+    $val: nth($pads-xs, $i);
+    .pad-xs-#{$val}, .pad-all-xs-#{$val} > * {
+      padding: #{$val}px;
+    }
+  }
+}
+
+.no-pad, .pad-0 {padding:0}
+.no-padt, .padt-0 { padding-top: 0}
+.no-padb, .padb-0 { padding-bottom: 0}
+.no-padr, .padr-0 {padding-right: 0;}
+.no-padl, .padl-0 {padding-left: 0;}
+
+@media (max-width: 767px) {
+  .no-pad-xs { padding: 0}
+}
+
+/* SHADOWS
+------------------------------------ */
+.shadow-menu {
+  box-shadow:0 0 1px 1px rgba(#000, 0.1);
+}
+
+.shadow-card {
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+}
+
+
+/* ROTATE CLASSES
+------------------------------------- */
+@mixin rot-classes($rot, $deg) {
+
+  $str: "";
+  $val: "";
+  
+  @if ($rot == "x") {
+    $str: rotx-#{$deg};
+    $val: rotateX(#{$deg}deg);
+  } @elseif ($rot == y) {
+    $str: roty-#{$deg};
+    $val: rotateY(#{$deg}deg);
+  } @elseif ($rot == z) {
+    $str: rotz-#{$deg};
+    $val: rotateZ(#{$deg}deg);
+  }
+  
+  .#{$str},
+  .collapsed.collapsed-#{$str},
+  .collapsed > .collapsed-#{$str},
+  .collapsed > * .collapsed-#{$str},
+  .active.active-#{$str},
+  .active > .active-#{$str},
+  .active > * .active-#{$str},
+  .open.open-#{$str},
+  .open > .open-#{$str},
+  .open > * .open-#{$str},
+  .toggled.toggled-#{$str},
+  .toggled > .toggled-#{$str},
+  .toggled > * .toggled-#{$str} {
+    transform: $val;
+  }
+}
+
+@include rot-classes(z, 45);
+@include rot-classes(z, 90);
+@include rot-classes(z, 135);
+
+
+/* HOVER EFFECTS
+------------------------------------- */
+.hov-efx-fade {
+  &:hover > * {
+    opacity: 0.5;
+    transition: opacity 0.3s;
+  }
+  
+  > *:hover, >*:active {
+    opacity: 1;
+  }
+}
+
+/* ENTRANCE EFFECTS
+------------------------------------- */
+[class*=' efx-'] {
+  transition: all 0.4s;
+  visibility: hidden;
+  
+  &.unhide {
+    visibility: visible;
+  }
+}
+
+.efx-fade-in {
+  opacity: 0;
+  
+  &.unhide {
+    opacity:1;
+  }
+}
+
+.efx-dropdown {
+  opacity: 0;
+  
+  &.unhide {
+    opacity:1;
+  }
+}
+
+.efx-scale {
+  transform: scale(0);
+  opacity:0;
+  
+  &.unhide {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.efx-slide-down {
+  transform: translateY(-100%);
+  
+  &.unhide {
+    transform: translateY(0);
+  }
+}
+
+.efx-slide-right {
+  transform: translateX(-100%);
+  
+  &.unhide {
+    transform: translateX(0);
+  }
+}
+
+.efx-slide-left {
+  transform: translateX(100%);
+  
+  &.unhide {
+    transform: translateX(0);
+  }
+}
+
+.efx-scale-up {
+  transform: translateY(60%) scale(0);
+  
+  &.unhide {
+    transform: translateY(0) scale(1);
+  }
+}
+
+.efx-scale-down {
+  transform: translateY(-60%) scale(0);
+  
+  &.unhide {
+    transform: translateY(0) scale(1);
+  }
+}
+
+.efx-expand-x {
+  width:0;
+  left: 50%;
+  transform: translateX(-50%);
+  
+  &.toggling {
+    overflow: hidden;
+  }
+  
+  &.unhide {
+    width: 100%;
+  }
+}
+
+/* TRANSITON DURATIONS
+------------------------------------- */
+.tdur-800 {
+  transition-duration: 800ms !important;
+}
+.tdur-600 {
+  transition-duration: 600ms !important;
+}
+.tdur-400 {
+  transition-duration: 400ms !important;
+}
+
+.ts-all {
+  transition-type: all 0.6s;
+  display: block;
+}
+ 
+
+/* MISC
+------------------------------------- */
+.hidden-toggled {
+  display: block;
+}
+
+.visible-toggled {
+  display: none;
+}
+
+.toggled {
+  .hidden-toggled {
+    display: none;
+  }
+
+  .visible-toggled {
+    display: block;
+  }
+}
+
+.active-visible {
+  display: none !important;
+}
+
+.active.active-visible,
+.active > .active-visible,
+.active > * .active-visible {
+  display: block !important;
+} 
+
+.active.active-hidden,
+.active > .active-hidden,
+.active > * .active-hidden {
+  display: none !important;
+}
+
+/* FONT CLASSES
+-------------------------------------*/
+@each $name, $font in $font-classes {
+  @include font-class($name, $font);
+}
+
+/* SKIN COLORS
+--------------------------------- */
+@include print-skin($skin);
+
+/* MATERIAL DESIGN COLORS
+--------------------------------- */
+@include print-mdcolors($md-colors);
+
+/* GRADIENTS
+--------------------------------- */
+@include print-grads($md-grads);
+@include print-grads(map-get($skin, grads));
+
+/* OVERLAYS
+--------------------------------- */
+@include print-overlays(map-get($skin, overlays));
+
+/* CLEANUP & RESETS
+--------------------------------- */
+.bg-inherit {
+  background: inherit;
+}
+.fg-inherit {
+  color: inherit;
+}
+.btn-outline {
+  background:none;
+  border-width: 1px;
+  
+  &:hover {
+    color: #fff;
+    background-image: none;
+  }
+  
+  &.btn-white:hover {
+    color: skin-color(text);
+    background-image: none;
+  }
+}
+
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary:active:focus {
+  background: skin-color(primary-l);
+  border-color: transparent;
+}
+
+.btn-white-10pc, .btn-white-10pc.btn-outline, 
+.btn-white-20pc, .btn-white-20pc.btn-outline,
+.btn-white-30pc,.btn-white-30pc.btn-outline {
+  color: #fff;
+}
+
+.btn-white {
+  color: skin-color(text);
+}

@@ -1,0 +1,77 @@
+/* UNIMEDIA
+------------------------------------ */
+.unimedia, .unimedia-list > li {
+  display: table;
+  width: 100%;
+}
+
+.unimedia-list {
+  list-style: none;
+  padding:0;
+  margin:0;
+  
+  > li {
+    padding:15px 0;
+    
+    &:first-child {
+      padding-top: 0;
+    }
+    
+    &:last-child {
+      padding-bottom: 0;
+    }
+  }
+}
+
+.unimedia-cell {
+  display: table-cell;
+  vertical-align: top; 
+  padding-left: 15px;
+  
+  &:first-child {
+    padding-left:0;
+  }
+}
+
+.unimedia-img {
+  @extend %uni-img;
+}
+
+.unimedia-title, .unimedia-subtitle, .unimedia-text {
+  display: block;
+  margin: 0;
+  line-height: 1em;
+}
+
+.unimedia-subtitle { font-family: $font-subtitle}
+.unimedia-title { font-family: $font-title}
+
+.unimedia-title, .unimedia-text {
+  line-height: 1.4em;
+}
+
+* + .unimedia-title, * + .unimedia-subtitle, * + .unimedia-text {
+  margin-top: 10px;
+}
+
+@media (max-width: 767px) {
+  .hidden-xs + .unimedia-title {
+    margin-top: 0;
+  }
+  .hidden-xs + .unimedia-subtitle {
+    margin-top: 0;
+  }
+  .hidden-xs + .unimedia-text {
+    margin-top: 0;
+  }
+}
+.unimedia-subtitle, .unimedia-title {
+  > a, > a:hover {
+    color: inherit;
+  }
+}
+
+.unimedia.unimedia-v {
+  display: block;
+  width: auto;
+}

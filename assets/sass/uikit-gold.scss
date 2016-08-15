@@ -1,0 +1,38 @@
+/*!
+  ********************************************************
+    Main stylesheet for CardPost v1.0.0
+    http://arnique.net
+  ********************************************************
+*/
+
+// INIT
+// ----------------------------------
+@import "setup/functions";
+@import "setup/mixins";
+@import "setup/fonts";
+@import "setup/md-colors";
+// ** Change Skin Here ** 
+@import "skins/skin-gold";
+// ** /Change Skin Here **
+@import "variables";
+
+// COMMON
+// ----------------------------------
+@import "partials/common/bs-theme";
+@import "partials/common/unihelpers";
+@import "partials/common/uninav";
+@import "partials/common/unibar";
+@import "partials/common/unicard";
+@import "partials/common/unimedia";
+@import "partials/common/color-icons";
+
+// LAYOUT
+// ----------------------------------
+@import "partials/layout/setup";
+@import "partials/layout/main";
+@import "partials/layout/posts";
+@import "partials/layout/switcher";
+
+// OMEGA
+// ----------------------------------
+@import "partials/common/utils";

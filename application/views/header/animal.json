@@ -1,0 +1,8 @@
+
+//animals type
+
+[ { "name": "dog", "breed" : [ { "name": "Chihuaua" }, { "name": "Pastor Alemao" }, { "name": "Husky" }, { "name": "Hotweiller" } ], "color":[ { "name": "black" }, { "name": "white" }, { "name": "brown" } ] }, { "name": "cat", "color":[ { "name": "black" }, { "name": "white" }, { "name": "brown" } ] }, { "name": "bird", "color":[ { "name": "black" }, { "name": "white" }, { "name": "yellow" } ] }, { "name": "other" } ]
+
+//vehicle type
+
+[{"name":"car","color":[{"name":"black"},{"name":"white"},{"name":"brown"}],"brand":[{"name":"ford"},{"name":"renault"},{"name":"honda"},{"name":"chrysler"}]},{"name":"motorcycle","color":[{"name":"black"},{"name":"white"},{"name":"yellow"}],"brand":[{"name":"harley davidson"},{"name":"suzuki"},{"name":"honda"}]},{"name":"other"}]

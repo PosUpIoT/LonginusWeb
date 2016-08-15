@@ -1,0 +1,68 @@
+// DEFAULT SKIN
+// ----------------------------------
+$bc: md-color("blue-grey", 900);
+$pc: md-color("teal");
+$sc: md-color("green", 300);
+$ac: md-color("gold", 600); 
+
+$skin:(
+  // Basics
+  base: $bc,
+  base-d: darken($bc, 5%),
+  base-xd: darken($bc, 10%),
+  base-l: lighten($bc, 5%),
+  base-xl: lighten($bc, 10%),
+  primary: $pc,
+  primary-l: lighten($pc, 5%),
+  primary-d: darken($pc, 5%),
+  primary-xd: darken($pc, 10%),
+  secondary: $sc,
+  secondary-l: lighten($sc, 5%),
+  secondary-xl: lighten($sc, 10%),
+  secondary-d: darken($sc, 5%),
+  secondary-xd: darken($sc, 10%),
+  accent: $ac,
+  accent-l: lighten($ac, 10%),
+  accent-xl: lighten($ac, 20%),
+  
+  // Type
+  text: tint(#000, 35%),
+  text-l: tint(#000, 50%),
+  text-xl: tint(#000, 65%),
+  text-d: tint(#000, 15%),
+  title: tint(#000, 25%),
+  link: $pc,
+  link-hov: darken($pc, 10%),
+  link-sel:lighten($pc, 10%),
+  
+  // Gradients
+  grads:(
+    primary: ( 
+      stops:($pc, $sc),
+      fallback: mix($pc, $sc)
+    ),
+    header: ( 
+      stops:($pc, $sc),
+      fallback: mix($pc, $sc)
+    ),
+    caption:(
+      stops:(rgba(#000,0.01), rgba(#000,0.9)),
+      fallback: rgba(#000, 0.5)
+    )
+  ),
+
+  // Overlays
+  overlays:(
+    primary: rgba($pc, 0.9),
+    secondary: rgba($sc, 0.9),
+    base: rgba($bc, 0.9),
+    accent: rgba($ac, 0.9),
+    caption: linear-gradient(rgba(#000,0.01), rgba(#000,0.9)),
+    "black": rgba(#000, 0.9),
+    "black-15pc": rgba(#000, 0.15),
+    "black-30pc": rgba(#000, 0.3),
+    "black-40pc": rgba(#000, 0.4),
+    "black-50pc": rgba(#000, 0.5),
+    "white": rgba(#fff, 0.9),
+  )
+);

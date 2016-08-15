@@ -1,0 +1,73 @@
+/* SWITCHER (DELETE WHEN NO LONGER NEEDED)
+------------------------------------ */
+.switcher {
+  position: fixed;
+  top: 100px;
+  right: -230px;
+  z-index: $z-apex;
+  transition: all 0.4s;
+  
+  &.unhide {
+    right:0;
+  }
+  
+  label {
+    font-weight:normal;
+  }
+  
+  @media (max-width: 767px) {
+    display: none;
+  }
+  
+  div.radio-inline { padding: 0;}
+}
+
+a.switcher-toggle {
+  color: #ddd;
+  background: #fff;
+  position: absolute;
+  font-size: 20px;
+  left:-40px;
+  top: 40px;
+  z-index: 0;
+  border: 1px solid #ddd;
+  
+  &:active, &:focus {
+    color: #ddd;
+  }
+  &:hover {
+    color: skin-color(primary);
+  }
+}
+
+.switcher.unhide a.switcher-toggle {
+  color: skin-color(primary);
+}
+
+.switcher-panel {
+  background: #fff;
+  width: 230px;
+  position: relative;
+  z-index: 1;
+  border: 1px solid #ddd;
+}
+
+.switcher-block {
+  padding: 25px;
+  
+  h5 {
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+}
+
+.switcher-block + .switcher-block {
+  border-top: 1px solid #ddd;
+}
+
+.switcher-grid {
+  a {
+    display: block;
+    height: 25px;
+  }
+}

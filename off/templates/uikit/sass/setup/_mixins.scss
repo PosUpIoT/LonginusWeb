@@ -1,0 +1,363 @@
+// VENDORIZE
+// ----------------------------------
+$prefixes: ("-webkit-","-moz-", "-o-", "");
+
+@mixin vendorize($property, $value) { 
+	@each $prefix in $prefixes {
+		#{$prefix}#{$property}: #{$value};
+	}
+}
+
+// ICONS
+// ----------------------------------
+@mixin fixed-icon($type, $diameter) {
+
+  @if $type == 'square' {
+    display:inline-block;
+    text-align: center;
+    line-height: $diameter;
+    height: $diameter;
+    width: $diameter;
+    font-size:floor($diameter * 0.4);
+    @include vendorize(box-sizing, content-box);
+	} 
+  @elseif $type == 'round' {
+    display:inline-block;
+    text-align: center;
+    line-height: $diameter;
+    height: $diameter;
+    width: $diameter;
+    font-size:floor($diameter * 0.4);
+    @include vendorize(box-sizing, content-box);
+    @include vendorize(border-radius, "50%");
+	} 
+  @elseif $type == 'reset' {
+    line-height: $diameter;
+    height: $diameter;
+    width: $diameter;
+    font-size:floor($diameter * 0.4);
+	} 
+}
+
+@mixin em-icon($type, $r, $d) {
+  $fs: #{$d/$r}em;
+  display:inline-block;
+  text-align: center;
+  line-height:$r;
+  height: $r;
+  width: $r;
+  font-size: $fs;
+  @include vendorize(box-sizing, content-box);
+
+  @if $type == 'round' {
+    @include vendorize(border-radius, "50%");
+	} 
+  
+  @if $type == 'reset' {
+    font-size: $fs;
+	} 
+}
+
+// ARROWS
+// ----------------------------------------
+@mixin arrow($dir, $w, $h, $color) { 
+	display:block;
+	width: 0;
+	height:0;
+	background: none;
+	border: none;
+	
+	@if $dir == 'up' {
+		border-bottom: $h solid $color;
+		border-right: ($w / 2) solid transparent;
+		border-left: ($w / 2) solid transparent;
+	
+	} 
+	@elseif $dir == 'down' {
+		border-top: $h solid $color;
+		border-right: ($w / 2) solid transparent;
+		border-left: ($w / 2) solid transparent;
+	}
+	@elseif $dir == 'right' {
+		border-left: $w solid $color;
+		border-top: ($h / 2) solid transparent;
+		border-bottom: ($h / 2) solid transparent;
+	}
+	@elseif $dir == 'left' {
+		border-right: $w solid $color;
+		border-top: ($h / 2) solid transparent;
+		border-bottom: ($h / 2) solid transparent;
+	}
+	@elseif $dir == 'top-right' {
+		border-right: $w solid $color;
+		border-bottom: $h solid transparent;
+	}
+	@elseif $dir == 'top-left' {
+		border-left: $w solid $color;
+		border-bottom: $h solid transparent;
+	}
+	@elseif $dir == 'bottom-right' {
+		border-right: $w solid $color;
+		border-top: $h solid transparent;
+	}
+	@elseif $dir == 'bottom-left' {
+		border-left: $w solid $color;
+		border-top: $h solid transparent;
+	}
+}
+
+// COLORS
+// -----------------------------------------
+@mixin print-skin() {
+  @each $color, $val in $skin {
+    @if(type-of($val) != map) {
+      .fg-#{$color}, .fg-hov-#{$color}:hover, .fg-active-#{$color}.active   {
+        color: $val;
+      }
+      
+      .bdc-#{$color}, .bdc-hov-#{$color}:hover, .bdc-active-#{$color}.active, .bdc-after-#{$color}:after {
+        border-color: $val;
+      }
+      
+      .bg-#{$color}, .bg-hov-#{$color}:hover, .bg-active-#{$color}.active, .btn-#{$color} {
+        background-color: $val;
+      }
+    }
+  }
+}
+
+@mixin print-fonts() {
+  @each $name, $font in $font-classes {
+    @include font-class($name, $font);
+  }
+}
+
+@mixin bs-grid($gs) {
+  $pad: $gs /2;
+  .container, .container-fluid, .row {
+    @extend .clearfix;
+  }
+
+  .container, .container-fluid {
+    padding-left: $pad;
+    padding-right: $pad;
+    margin-left:auto;
+    margin-right:auto;
+  }
+
+  .row {
+    margin-right: - $pad;
+    margin-left: - $pad;
+  }
+
+  @media (min-width: $screen-sm) {
+    .container {
+      width: 750px;
+    }
+  }
+  @media (min-width: $screen-md) {
+    .container {
+      width: 970px;
+    }
+  }
+  @media (min-width: $screen-lg) {
+    .container {
+      width: 1170px;
+    }
+  }
+
+  /* all screens */
+  [class*=col-] {
+    position: relative;
+    min-height: 1px;
+    padding-right: 15px;
+    padding-left: 15px;
+    float: left;
+    box-sizing: border-box;
+  }
+
+  @for $n from 1 through 12 {
+    $val: (100 / (12 / $n)) * 1%;
+    .col-xs-#{$n} {
+      width: $val;
+    }
+    
+    .col-xs-pull-#{$n} {
+      right: $val;
+    }
+    
+    .col-xs-left-#{$n} {
+      left: $val;
+    }
+    
+    .col-xs-offset-#{$n} {
+      margin-left: $val;
+    }
+  }
+
+  /* small screens */
+  @media (min-width: $screen-sm) {
+    @for $n from 1 through 12 {
+      $val: (100 / (12 / $n)) * 1%;
+      .col-sm-#{$n} {
+        width: $val;
+      }
+      
+      .col-sm-pull-#{$n} {
+        right: $val;
+      }
+      
+      .col-sm-left-#{$n} {
+        left: $val;
+      }
+      
+      .col-sm-offset-#{$n} {
+        margin-left: $val;
+      }
+    }
+  }
+
+  /* medium screens */
+  @media (min-width: $screen-md) {
+    @for $n from 1 through 12 {
+      $val: (100 / (12 / $n)) * 1%;
+      .col-md-#{$n} {
+        width: $val;
+      }
+      
+      .col-md-pull-#{$n} {
+        right: $val;
+      }
+      
+      .col-md-left-#{$n} {
+        left: $val;
+      }
+      
+      .col-md-offset-#{$n} {
+        margin-left: $val;
+      }
+    }
+  }
+
+  /* larger screens */
+  @media (min-width: $screen-lg) {
+    @for $n from 1 through 12 {
+      $val: (100 / (12 / $n)) * 1%;
+      .col-lg-#{$n} {
+        width: $val;
+      }
+      
+      .col-lg-pull-#{$n} {
+        right: $val;
+      }
+      
+      .col-lg-left-#{$n} {
+        left: $val;
+      }
+      
+      .col-lg-offset-#{$n} {
+        margin-left: $val;
+      }
+    }
+  }
+}
+
+
+@mixin gutter($size) {
+  $g: ($size / 2) * 1px;
+  .gutter-#{$size}.row {
+    margin-right: - $g;
+    margin-left: - $g;
+    
+    > * {
+      padding-right: $g;
+      padding-left: $g;
+    }
+    
+    &.spaced > * {
+      padding: $g;
+    }
+  }
+}
+
+// COLOR CLASSES
+// ----------------------------------------
+@mixin fg-classes($color, $val) {
+  .fg-#{$color}, .uninav-#{$color}-all > li > a, .uninav-fg-#{$color} > li > a, .uninav-fga-#{$color} > li.active > a, .uninav-fga-#{$color} > li:hover > a, .fg-hov-#{$color}:hover, .fg-after-#{$color}:after, .fg-before-#{$color}:before, .btn-outline.btn-#{$color}   {
+    color: $val;
+  } 
+}
+
+@mixin bg-classes($color, $val) {
+  .bg-#{$color}, .bg-hov-#{$color}:hover, .dropdown-menu-#{$color} > li.active > a, .dropdown-menu-#{$color} > li.active:hover > a, .uninav-bg-#{$color} > li > a, .uninav-bga-#{$color} > li.active > a:after, .uninav-bga-#{$color} > li:hover > a:after, .uninav-bga-#{$color}.uninav-pills > li.active > a, .uninav-bga-#{$color}.uninav-pills > li:hover > a, .bg-after-#{$color}:after, .bg-before-#{$color}:before, .unilabel-#{$color}, .btn-#{$color}, .btn-outline.btn-#{$color}:hover, .btn-outline.btn-#{$color}:focus {
+    background-color: $val;
+  }
+}
+
+@mixin bdc-classes($color, $val) {
+  .bdc-#{$color}, .bdc-hov-#{$color}:hover, .bdc-after-#{$color}:after, .bdc-before-#{$color}:before, .btn-outline.btn-#{$color} {
+    border-color: $val;
+  }
+}
+
+@mixin color-classes($color, $val) {
+  @include fg-classes($color, $val);
+  @include bg-classes($color, $val);
+  @include bdc-classes($color, $val);
+}
+
+// PRINT SKIN
+// ----------------------------------------
+@mixin print-skin($src) {
+  @each $color, $val in $src {
+    @if(type-of($val) != map) {
+      @include color-classes($color, $val);
+    }
+  }
+}
+
+// PRINT GRADS
+// ----------------------------------------
+@mixin print-grads($src) {
+  @each $grad, $map in $src {
+    .grad-tr-#{$grad} {
+      background: map-get($map, fallback);
+      background: linear-gradient(to right, map-get($map, stops));
+    }
+    
+    .grad-#{$grad} {
+      background: map-get($map, fallback);
+      background: linear-gradient(to bottom, map-get($map, stops));
+    }
+    
+    .grad-#{$grad}-fb {
+      background-color: map-get($map, fallback);
+    }
+  }
+}
+
+// PRINT COLORS
+// ----------------------------------------
+@mixin print-mdcolors($src) {
+  @each $color, $map in $src {
+    @if (map-get($map, active)) {
+      @each $shade, $val in $map {
+        @if($shade == 500) {
+          @include color-classes($color, $val);
+        } @elseif ($shade != "active") {
+          @include color-classes(#{$color}-#{$shade}, $val);
+        }
+      }
+    }
+  }
+}
+
+// PRINT OVERLAYS
+// ----------------------------------------
+@mixin print-overlays($src) {
+  @each $name, $val in $src {
+    .overlay-#{$name}:before {
+      background: $val;
+    }
+  }
+}

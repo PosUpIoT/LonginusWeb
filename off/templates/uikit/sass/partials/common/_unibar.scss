@@ -1,0 +1,409 @@
+// UNIBAR VARS
+// ---------------------------------
+$unibar-sizes: (
+  default:(
+    bar-h: 50px,
+    bar-pad-x:20px,
+    fs: 14px,
+    brand-h: 30px,
+    brand-fs: 20px,
+    cell-pad-x: 5px,
+    link-pad-x: 15px,
+  ),
+  
+  md:(
+    bar-h: 65px,
+    bar-pad-x:20px,
+    fs: 14px,
+    brand-h: 30px,
+    brand-fs: 30px,
+    cell-pad-x: 5px,
+    link-pad-x: 20px,
+    
+    tablet:(
+      bar-h: 50px,
+      bar-pad-x:20px,
+      fs: 12px,
+      brand-h: 30px,
+      brand-fs: 20px,
+      cell-pad-x: 5px,
+      link-pad-x: 15px,
+    )
+  ),
+  
+  lg:(
+    bar-h: 90px,
+    bar-pad-x:20px,
+    fs: 14px,
+    brand-h: 30px,
+    brand-fs: 20px,
+    cell-pad-x: 5px,
+    link-pad-x: 20px,
+    
+    tablet:(
+      bar-h: 60px,
+      bar-pad-x:20px,
+      fs: 13px,
+      brand-h: 30px,
+      brand-fs: 20px,
+      cell-pad-x: 5px,
+      link-pad-x: 15px,
+    ),
+    
+    mobile:(
+      bar-h: 50px,
+      bar-pad-x:20px,
+      fs: 12px,
+      brand-h: 30px,
+      brand-fs: 20px,
+      cell-pad-x: 5px,
+      link-pad-x: 15px,
+    )
+  )
+);
+
+$unibar-def: map-get($unibar-sizes, default);
+
+/* UNIBAR
+------------------------------------ */
+.unibar-default {
+  background: skin-color(black-3);
+  border: 1px solid rgba(#000, 0.15);
+}
+
+.unibar {
+  min-height: map-get($unibar-def, nav-h);
+  font-size: map-get($unibar-def, fs);
+  position: relative;
+  z-index: $z-nav;
+  box-sizing: border-box;
+  transition: all 0.4s;
+  
+  &.no-pad {
+    padding: 0;
+  }
+  
+  a:hover, a:focus {
+    text-decoration: none;
+  }
+}
+
+.unibar-container, .unibar {
+  @extend .clearfix;
+}
+
+.unibar-container {
+  position: relative;
+  padding:0 map-get($unibar-def, bar-pad-x) - map-get($unibar-def, cell-pad-x);
+  background: inherit;
+  z-index: 1;
+}
+
+.unibar-right-xs {
+  float:right;
+}
+
+.unibar-left-xs {
+  float:left;
+}
+
+
+.unibar-block {
+  display: table;
+  height: map-get($unibar-def, bar-h)
+}
+
+.unibar-cell {
+  display: table-cell;
+  height: 100%;
+  vertical-align: middle;
+  padding:0 map-get($unibar-def, cell-pad-x);
+}
+
+.cell-max {
+  width: 100%;
+}
+
+.cell-min {
+  width: auto;
+  white-space: nowrap;
+}
+
+.unibar-link:hover {
+  text-decoration: underline;
+}
+
+/* brand */
+.unibar-brand {
+  display: block;
+  height: map-get($unibar-def, brand-h);
+  line-height: map-get($unibar-def, brand-h);
+  font-size: map-get($unibar-def, brand-fs);
+  color: skin-color(text);
+
+  img {
+    display:block;
+    height:100%;
+    max-height: none;
+    max-width: none;
+    width:auto;
+    line-height: inherit;
+  }
+}
+
+.unibar-tagline {
+  display: block;
+  line-height: 1em;
+}
+
+.unibar-brand + .unibar-tagline {
+  margin-top: 10px;
+}
+
+/* nav */
+.uninav.unibar-nav {
+  > li > a {
+    font-size: map-get($unibar-def, brand-fs);
+    padding-left: map-get($unibar-def, link-pad-x);
+    padding-right: map-get($unibar-def, link-pad-x);
+  }
+}
+
+.dropdown-mega {
+  position: static;
+}
+
+@mixin collapsed-state($sfx) {
+
+  .unibar-collapse#{$sfx} {
+    position: absolute;
+    top: 100%;
+    left:-1px;
+    width: 100%;
+    box-sizing: content-box;
+    background: inherit;
+    transition: all 0.4s;
+    border: 1px solid rgba(#000, 0.15);
+    overflow: auto;
+    transform: translateX(-100%);
+    visibility: hidden;
+    
+    &.unhide {
+      visibility: visible;
+      transform: translateX(0);
+    }
+    
+    .unibar-left, .unibar-right {
+      float: none;
+    }
+    
+    .unibar-block, .unibar-cell {
+      display: block;
+      width: 100%;
+      height: auto !important;
+    }
+
+    .unibar-cell {
+      padding:15px map-get($unibar-def, bar-pad-x);
+      
+      &.nav-cell {
+        padding: 0;
+      }
+    }
+    
+    .unibar-block + .unibar-block, .unibar-cell + .unibar-cell {
+      border-top: 1px solid rgba(#000, 0.1);
+    }
+    
+    .dropdown-menu {
+      float: none;
+      margin:0;
+      box-shadow: none;
+      width:100%;
+      position: relative;
+      top:0;
+      left:0;
+      border: none;
+      border-top: 1px solid rgba(#000, 0.1);
+    }
+    
+    .unibar-uninav{
+      height: auto;
+      width: 100%;
+      display: block;
+      
+      > li {
+        float: none;
+        display: block;
+        width: 100%;
+        height: auto;
+        border-bottom: 1px solid rgba(#000, 0.1);
+        
+        &:last-child {
+          border: none;
+        }
+        
+        > a {
+          padding:15px map-get($unibar-def, bar-pad-x);
+          
+          &:after {
+            display: none;
+          }
+        }
+      }
+      
+      &.uninav-fillh > li > a {
+        line-height: 1em !important;
+      }
+    }
+  }
+}
+
+/* collapse */
+@media (max-width: 991px) {
+  @include collapsed-state("-sm");
+}
+
+@media (max-width: 768px) {
+  @include collapsed-state("");
+}
+
+/* menucons
+------------------------------------*/
+.menucon, .menucon-dots {
+  position: relative;
+  display: block;
+  width: 22px;
+  height: 15px;
+  
+  span, span:before, span:after {
+    position: absolute;
+    display: block;
+    height: 3px;
+    left:0;
+    width:100%;
+    transform-origin:center;
+    transition:all 0.3s;
+  }
+  
+  span {
+    top:0;
+    bottom:0;
+    margin:auto 0;
+  }
+  
+  span:before, span:after {
+    content: "";
+    background: inherit;
+  }
+
+  span:before {
+    top: -200%;
+  }
+  
+  span:after {
+    bottom: -200%;
+  }
+}
+
+.menucon.morphs.toggled {
+  span {
+    transform: rotateZ(45deg);
+  }
+  
+  span:before {
+    top:0;
+  }
+  
+  span:after {
+    top:0;
+    bottom:0;
+    margin:auto 0;
+    transform: rotateZ(90deg);
+  }
+}
+
+.menucon-dots {
+  &:before, &:after, span {
+    width: 3px;
+    right: 0;
+    margin: auto;
+  }
+}
+
+
+/* NAVBAR SIZES
+------------------------------------*/
+@mixin resize-navbar($cname, $vars) {
+  .unibar.#{$cname} {
+    min-height: map-get($vars, bar-h);
+    font-size: map-get($vars, fs);
+    
+    .unibar-block {
+      height: map-get($vars, bar-h);
+    }
+    
+    .unibar-brand {
+      height: map-get($vars, brand-h);
+      line-height: map-get($vars, brand-h);
+      font-size: map-get($vars, brand-fs);
+    }
+    
+    .unibar-uninav.uninav > li > a {
+      font-size: map-get($vars, fs);
+      padding-left: map-get($vars, link-pad-x);
+      padding-right: map-get($vars, link-pad-x);
+    }
+    
+    .uninav-fillh > li > a, .uninav-fills > li > a {
+      line-height: map-get($vars, bar-h);
+    }
+    
+    .uninav-fillh.uninav-celled > li > a, .uninav-fills.uninav-celled > li > a {
+      line-height:1em;
+    }
+    
+    @media (max-width:767px) {
+      .unibar-collapse .uninav-fillh > li > a, .unibar-collapse .uninav-fills > li > a {
+        line-height:1em;
+      }
+    }
+  }
+  
+  $vars-xs: map-get($vars, mobile);
+  $vars-sm: map-get($vars, tablet);
+  
+  @if ($vars-sm) {
+    @media (max-width: 991px) {
+      @include resize-navbar($cname, $vars-sm);
+    }
+  }
+  
+  @if ($vars-xs) {
+    @media (max-width: 767px) {
+      @include resize-navbar($cname, $vars-xs);
+    }
+  }
+
+}
+
+
+@each $size, $vars in $unibar-sizes {
+  @if($size != "default") {
+    @include resize-navbar(unibar-#{$size}, $vars);
+  }
+}
+
+/* unibar inverse
+------------------------------------*/
+.unibar.unibar-inverse {
+  color: #fff;
+  
+  &.bd-all {
+    border-color: rgba(#fff, 0.1);
+  }
+
+  .unibar-brand, .unibar-text, .unibar-link, .unibar-link:hover {
+    color: #fff;
+  }
+}

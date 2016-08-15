@@ -1,0 +1,307 @@
+/* UNILABEL
+------------------------------------ */
+.unilabel, [class*=" unilabel-"], [class^="unilabel-"] {
+  display: table;
+  color:#fff;
+  line-height: 1em;
+  padding: 7px 14px;
+  z-index: 10;
+  font-family: $font-subtitle;
+}
+
+.unilabel-sm { padding:5px 10px; font-size: 0.9em;}
+.unilabel-xs { padding:3px 10px; font-size: 0.8em;}
+
+/* UNICON
+------------------------------------ */
+.unicon, .unicon-square, .unicon-round-3 {
+  display: inline-block;
+  text-align: center;
+  width: 2em;
+  line-height: 2em;
+  height: 2em;
+}
+
+.unicon-round {
+  border-radius: 50%;
+}
+
+.unicon-round-3 {
+  border-radius: 3px;
+}
+
+/* UNILIST
+------------------------------------ */
+.unilist {
+  list-style: none;
+  padding: 0;
+  margin:0;
+  
+  > li {
+    display: table;
+    padding: 10px;
+    > * {
+      display: table-cell;
+      vertical-align: middle;
+    }
+  }
+}
+
+.unilist-ruled {
+  > li {
+    border-bottom:1px solid rgba(#000, 0.1);
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+}
+
+.unilist-ruled-dots {
+  > li {
+    border-bottom:1px dotted rgba(#000, 0.1);
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+}
+
+.unilist-ruled.inverse, .inverse-all .unilist-ruled.auto-invert {
+  > li {
+    border-bottom:1px solid rgba(#fff, 0.1);
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+}
+
+/* titles */
+%unititles {
+  display: block;
+  line-height: 1em;
+  margin:0;
+}
+
+%unititle { line-height: 1.4em}
+%unitext { line-height: 1.4em;}
+
+%unititle-linked {
+  > a, > a:hover {
+    color: inherit;
+  }
+}
+
+%unititle-margins {
+  margin-top: 10px;
+}
+
+/* UNIMETA
+------------------------------------ */
+* + .unimeta { margin-top: 10px }
+
+.unimeta span {
+  display: inline-block;
+  font-size: 0.9em;
+  
+  i {
+    display: inline-block;
+    margin-right: 5px;
+    vertical-align: middle;
+  }
+}
+
+.unimeta span + span {
+  position: relative;
+  
+  &:before {
+    content:"\2022";
+    display: inline-block;
+    padding:0 10px;
+    opacity: 0.5;
+  }
+}
+
+/* UNICAPTION
+------------------------------------ */
+.unicaption {
+  display: table;
+  width: 100%;
+  padding:10px 20px;
+  color: #fff;
+  position: absolute;
+  bottom:0;
+  left:0;
+  
+  a, a:hover {
+    color: #fff;
+  }
+}
+
+.unicaption-cell {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.unicaption-title, .unicaption-subtitle, .unicaption-text {
+  @extend %unititles;
+}
+
+.unicaption-title, .unicaption-subtitle {
+  @extend %unititle-linked;
+}
+
+.unicaption-title { line-height: 1.4em}
+.unicaption-text { line-height: 1.4em }
+
+* + .unicaption-title, * + .unicaption-subtitle, * + .unicaption-text {
+  margin-top: 7px;
+}
+
+
+/* UNIRATING
+------------------------------------ */
+.unirating {
+  list-style:none;
+  padding:0;
+  margin:0;
+  
+  li {
+    display: inline-block;
+  }
+  
+  i {
+    color: #ccc;
+    display: inline-block;
+    padding:0 3px;
+  }
+}
+
+.unirating.inverse, .inverse-all .unirating.auto-invert {
+  i {
+    color: rgba(#fff, 0.15);
+  }
+}
+
+.unirating > li:hover i {
+  color: #FFEB3B; 
+}
+
+[data-rating="4"] > li:nth-child(-n+4) i,
+[data-rating="3"] > li:nth-child(-n+3) i,
+[data-rating="2"] > li:nth-child(-n+2) i,
+[data-rating="1"] > li:nth-child(-n+1) i {
+  color: #FFEB3B; 
+}
+
+/* unicover */
+.unicover {
+  display: block;
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  z-index: 1;
+}
+
+/* UNITAGS
+------------------------------------ */
+.unitags {
+  list-style:none;
+  padding:0;
+  margin:0;
+  font-size:0;
+  $color: tint(#000, 93%);
+  
+  &:hover li {
+    opacity: 0.5;
+  }
+  
+  li {
+    display: inline-block;
+    font-size: 13px;
+    margin:2px;
+    padding-left:20px;
+    transition: opacity 0.4s;
+    
+    &:hover {
+      opacity: 1;
+       a {
+        color: skin-color(text-d);
+       }
+    }
+  }
+  
+  a {
+    display:block;
+    line-height: 34px;
+    padding: 0 15px;
+    background: $color;
+    color: skin-color(text);
+    position:relative;
+    
+    &:after {
+      content: "";
+      @include arrow(left, 20px, 34px, $color);
+      position:absolute;
+      left:-20px;
+      top:0;
+      z-index:0;
+    }
+    
+    &:before {
+      content: "";
+      display:block;
+      height:6px;
+      width:6px;
+      background: #fff;
+      border-radius:50%;
+      position:absolute;
+      top:0;
+      bottom:0;
+      left:-7px;
+      margin:auto 0;
+      z-index:1;
+    }
+  }
+}
+
+/* IMAGES
+------------------------------------ */
+%uni-img {
+  position: relative;
+  display: block;
+  
+  img {
+    display: block;
+    line-height: 1em;
+    max-width: 100%;
+    height: auto;
+    position:relative;
+    z-index:0;
+  }
+  
+  .img-link {
+    position:relative;
+    z-index:0;
+    display:block;
+  }
+}
+
+.img-round {
+  border-radius: 50%;
+}
+
+.img-cover {
+  display: block;
+  position: absolute;
+  top:0;
+  left:0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.img-layer {
+  z-index: 10;
+  position: absolute;
+}

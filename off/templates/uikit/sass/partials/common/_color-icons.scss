@@ -1,0 +1,75 @@
+/* COLOR ICONS 
+--------------------------------------------------- */
+$icon-colors: 
+  "facebook" #5371AD, 
+  "twitter" #2AA9E0, 
+  "google-plus" #D34829, 
+  "vine" #00B489,
+  "rss" #EF5C29, 
+  "pinterest" #CE2127, 
+  "youtube" #F03434,
+  "instagram" #569DC9,
+  "flickr" #FF0084,
+  "search" md-color("amber"),
+  "email" md-color("green"),
+  "envelope" md-color("green"),
+;
+
+.color-icons {
+  @each $color in $icon-colors {
+    [class*="-#{nth($color, 1)}"] {
+      color: #{nth($color, 2)};
+    }
+  }
+}
+
+.color-icons-borders .icon{
+  border: 1px solid rgba(#000, 0.1);
+}
+
+.color-icons-noborders-hovered .icon {
+  border-color: transparent;
+}
+
+@each $color in $icon-colors {
+  .bg-#{nth($color, 1)}, .bg-hov-#{nth($color, 1)}:hover {
+    background-color: #{nth($color, 2)};
+    color:#fff;
+  }
+}
+
+@each $color in $icon-colors {
+  .fg-#{nth($color, 1)}, .fg-hov-#{nth($color, 1)}:hover {
+    color: #{nth($color, 2)};
+  }
+}
+
+.color-icons-bg {
+
+  @each $color in $icon-colors {
+    [class*="-#{nth($color, 1)}"] {
+      background-color: #{nth($color, 2)};
+      color:#fff;
+    }
+  }
+}
+
+.color-icons-hovered {
+
+  @each $color in $icon-colors {
+    [class*="-#{nth($color, 1)}"]:hover {
+      color: #{nth($color, 2)}!important;
+      background: #fff;
+    }
+  }
+}
+
+.color-icons-bg-hovered {
+
+  @each $color in $icon-colors {
+    [class*="-#{nth($color, 1)}"]:hover {
+      background-color: #{nth($color, 2)}!important;
+      color:#fff!important;
+    }
+  }
+}

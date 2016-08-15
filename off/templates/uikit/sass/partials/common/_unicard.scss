@@ -1,0 +1,172 @@
+/* UNICARD
+------------------------------------ */
+[class*='tstrip'], [class*=' tstrip'] {
+  position: relative;
+  
+  &:after {
+    content: "";
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 5px;
+    background-color: skin-color(accent2);
+    top: -5px;
+    left:0;
+    right:0;
+    margin: 0 auto;
+  } 
+}
+
+.unicard-strip-header {
+  padding:0 20px;
+  
+  > * {
+    margin:0;
+    line-height:1em;
+    padding:20px 0 0 0;
+  }
+}
+
+.unicard-default, .unicard-framed {
+  background: #fff; 
+}
+
+.unicard-default {
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+}
+
+.unicard-framed {
+  border: 1px solid #ddd;
+}
+
+.unicard-block, .unicard-caption {
+  display: table;
+  padding: 20px;
+  width: 100%;
+}
+
+.unicard-cell {
+  display: table-cell;
+  height: 100%;
+  width: 100%;
+  vertical-align: middle;
+  padding:0 5px;
+  
+  &:first-child {
+    padding-left:0;
+  }
+  &:last-child {
+    padding-right:0;
+  }
+}
+
+.unicard-header, .unicard-footer {
+  padding: 20px;
+  display: table;
+  width: 100%;
+}
+
+
+.tline {
+  border-top: 5px solid skin-color(accent);
+}
+
+.unicard-img, .unicard-images {
+  @extend %uni-img;
+}
+
+.unicard-img, .unicard-images {
+  img {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.unicard-images {
+  .row {
+    position: relative;
+    z-index: 0;
+  }
+  
+  a {
+    display: block;
+    line-height:0;
+    
+    img {
+      display: block;
+      width: 100%;
+      height: auto;
+      position: relative;
+      z-index: 0;
+    }
+  }
+  
+  
+}
+  
+.unicard-title, .unicard-subtitle, .unicard-text {
+  @extend %unititles;
+}
+
+.unicard-title, .unicard-subtitle {
+  @extend %unititle-linked;
+}
+
+.unicard-title { line-height: 1.4em}
+.unicard-text { line-height: 1.4em }
+
+* + .unicard-title, * + .unicard-subtitle, * + .unicard-text {
+  margin-top: 7px;
+}
+
+.unicard-cross-header, .unicard-tee-header {
+  border-top: 5px solid skin-color(accent2);
+  position: relative; 
+  
+  h5 {
+    padding:0 30px;
+    display: table;
+    color: #fff;
+    background: skin-color(accent2);
+    margin:0 auto;
+    text-transform: uppercase;
+    font: normal 14px/40px $font-subtitle;
+  }
+}
+
+.unicard-cross-header {
+  height: 20px;
+  box-sizing: content-box;
+  
+  h5 {
+    position: absolute;
+    left:0;
+    right:0;
+    top: -100%;
+  }
+}
+
+.unicard-tee-header h5{
+  margin-bottom: 20px;
+}
+
+.unicard-picket, .unicard-picket-sm {
+  position: relative;
+  z-index: 10;
+  padding:0 20px;
+  
+  > div {
+    padding: 20px;
+    margin-top: - 40px;
+    background: #fff;
+  }
+}
+
+.unicard-picket-sm {
+  padding:0 15px;
+  
+  > div {
+    padding: 15 10px;
+    margin-top: -30px;
+  }
+}

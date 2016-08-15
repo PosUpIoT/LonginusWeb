@@ -1,0 +1,467 @@
+/* FLAT BOOTSTRAP
+-------------------------------------------*/
+.img-thumbnail,
+.btn,
+.btn-group .btn,
+.btn-group .dropdown-menu,
+.btn-group .btn,
+.btn-group .btn:first-child:not(:last-child),
+.btn-group .btn:last-child:not(:first-child),
+.table-bordered,
+.table-bordered tr:first-child th:first-child,
+.table-bordered tr:first-child th:last-child,
+.table-bordered tr:last-child td:first-child,
+.table-bordered tr:last-child td:last-child,
+.input-group .btn,
+.input-group .dropdown-menu,
+.input-group .form-control,
+.input-group .input-group-addon,
+.dropdown-menu,
+.dropdown-menu .dropdown-submenu .dropdown-menu,
+.form .form-control,
+.form .btn,
+.form-control,
+.label,
+.badge,
+.alert,
+.alert .btn,
+.progress,
+.breadcrumb,
+.tooltip .tooltip-inner,
+.popover,
+.nav-list-panel,
+.nav-tabs li > a,
+.tabs-below .nav-tabs li > a,
+.tabs-right .nav-tabs li > a,
+.tabs-left .nav-tabs li > a,
+.nav-tabs .dropdown-menu,
+.tabs-below .nav-tabs .dropdown-menu,
+.nav-pills li a,
+.nav-pills .dropdown-menu,
+.navbar,
+.navbar .dropdown-menu,
+.progress-bar, .progress
+.pagination li:first-child a, 
+.pagination li:last-child a,
+.pagination-lg li:first-child a, 
+.pagination-lg li:last-child a,
+.pagination-sm li:first-child a, 
+.pagination-sm li:last-child a,
+.pager li a:hover,
+.pager li a:focus,
+.panel,
+.panel-heading,
+.panel-body,
+.breadcrumb-arrow li:first-child a,
+pre, code,.container .jumbotron,
+.input-lg, .form-group-lg .form-control ,
+.modal-header .modal-title,.modal-content,
+.panel-group .panel, .panel-group .panel-heading {
+	border-radius: $border-r;
+}
+
+/* TYPOGRAPHY
+----------------------------------- */
+html, body {
+  font-family: $font-body;
+  font-size: $font-size;
+  line-height: $line-h;
+  color:skin-color(text);
+  
+  @media (max-width:767px) {
+    font-size: $font-size-xs;
+  }
+}
+
+a {
+  &:hover, &:focus, &:active {
+    outline: none;
+    text-decoration: none;
+  }
+  
+  &.fg-white, &.fg-white:hover {
+    color: #fff;
+  }
+  
+  &.fg-white:hover {
+    text-decoration: underline;
+  }  
+
+  &.fg-text-link, &.fg-text-link:hover {
+    color: skin-color(text);
+  }
+
+  &.fg-text-link:hover {
+    text-decoration: underline;
+  }
+}
+
+a {
+  color: skin-color(link);
+  
+  &:hover {
+    color: skin-color(link-hov);
+  }
+  
+  &:visited {
+    color: skin-color(link-sel);
+  }
+}
+
+.uline-links-hov a, a.uline-hov {
+  &:hover, &:focus, &:active {
+    text-decoration: underline;
+  }
+}
+
+blockquote {
+  background: rgba(#000, 0.05);
+  border-left: 5px solid skin-color(primary);
+  font-size: 1em;
+  padding: 20px;
+}
+
+p, blockquote, ul, ol, pre {
+  margin-bottom: $margin-b;
+}
+
+hr {
+  border-top:1px solid rgba(#000, 0.1);
+  margin: 30px 0;
+}
+
+hr.hr-empty {
+  border:none;
+}
+
+hr.hr-lg {
+  margin:60px 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: $font-title;
+  font-weight: normal;
+  color: skin-color(title);
+}
+
+@mixin h($el, $fs, $lh) {
+
+  $mb: $margin-b - (($fs * $lh) - $fs);
+  
+  #{$el} {
+    font-size: $fs;
+    line-height: $lh;
+    margin: 0 0 $mb 0;
+  }
+}
+
+@include h(h1, 36px, 1.3);
+@include h(h2, 30px, 1.3);
+@include h(h3, 24px, 1.3);
+@include h(h4, 18px, 1.3);
+@include h(h5, 14px, 1.3);
+@include h(h6, 12px, 1.3);
+
+.inverse-all {
+  color: rgba(#fff, 0.5);
+  
+  .fg-text, a.fg-text-link, a.fg-text-link:hover {
+    color: rgba(#fff, 0.8);
+  }
+  
+  .fg-text-d, h1, h2, h3, h4, h5, h6 {
+    color: #fff;
+  }
+}
+
+/* BUTTONS
+------------------------------------- */
+.btn {
+  color: #fff;
+  border: 1px solid transparent; 
+  font-family: $font-btn;
+  font-weight: normal;
+  
+  &:hover {
+    color: #fff;
+    background-image: linear-gradient(rgba(#fff,0.1), rgba(#fff,0.1));
+  }
+}
+
+.btn-padx-xl {
+  padding:10px 35px; 
+}
+.btn-pad-lg {
+  padding:10px 20px;
+}
+
+.btn-pad-xl {
+  padding:15px 30px;
+}
+
+.btn-pad-2xl {
+  padding:20px 40px;
+}
+
+.btn-default {
+  background: tint(#000, 97%);
+  color: skin-color(text);
+  border: 1px solid rgba(#000, 0.2); 
+  
+  &:hover {
+    background: tint(#000, 95%);
+    border: 1px solid rgba(#000, 0.3); 
+    color: skin-color(text);
+  }
+}
+
+.btn-download {
+  display: inline-block;
+  line-height: 1em;
+  height: auto;
+  text-align: left;
+  padding: 15px 20px;
+  
+  > * {
+    display: inline-block;
+  }
+
+  i {
+    font-size: 3em;
+    text-align: center;
+    margin-right: 10px;
+    vertical-align: top;
+  }
+  
+  small, b {
+    display: block;
+  }
+  
+  small {
+    font-size: 0.8em;
+    margin:0 0 5px 0;
+    line-height: 1em;
+  }
+  
+  b {
+    font-weight: normal;
+    font-size: 1.5em;
+    line-height: 1em;
+  }
+  
+  b + small {
+    margin:5px 0 0 0;
+  }
+}
+
+.btn-round {
+  padding:0;
+  height:2em;
+  width:2em;
+  line-height:2em;
+  border-radius: 50%;
+  text-align: center;
+  box-sizing: content-box;
+}
+
+.btn-split {
+  display: table;
+  padding:0;
+  
+  > * {
+    display: table-cell;
+    padding:10px;
+    text-align:center;
+    white-space:nowrap;
+    vertical-align:middle;
+  }
+  
+  i {
+    width:1em;
+    display:block;
+  }
+}
+
+/* DROPDOWNS
+------------------------------------- */
+.dropdown-menu {
+  margin-top: - 10px;
+  
+  > li > a {
+    padding:7px 20px;
+    color: skin-color(text);
+    font-family: $font-nav;
+    font-size: 13px;
+  }
+  
+  > li:hover > a {
+    color: skin-color(text-d);
+  }
+  
+  > li.active > a, > li.active:hover > a {
+    color: #fff;
+    background: skin-color(primary);
+  }
+}
+
+.dropdown-menu.dropdown-right {
+  left:auto;
+  right:0;
+}
+
+.dropdown-megamenu {
+  width: 100%;
+  min-width: none;
+}
+
+/* FORMS
+------------------------------------- */
+.form-control {
+  box-shadow: none;
+  border: 1px solid tint(#000, 75%);
+  
+  &:focus {
+    box-shadow: none;
+    border: 1px solid skin-color(secondary-l);
+  }
+}
+
+label.checkbox-styled {
+  $size: 14px;
+  position: relative;
+  padding-left: $size + 10px;
+  cursor: pointer;
+  
+  .indicator {
+    display: block;
+    height: $size;
+    width: $size;
+    position: absolute;
+    left:0;
+    top: (20px - $size) / 2 ;
+    border: 1px solid tint(#000, 75%);
+    z-index:1;
+  }
+  
+  input[type=checkbox] {
+    z-index: -1;
+    position:absolute;
+    opacity: 0;
+    
+    &:checked + .indicator {
+
+      &:after {
+        content: "\f00c";
+        font-family: "FontAwesome";
+        font-size: 10px;
+        line-height: $size;
+        width: $size;
+        text-align:center;
+        display: block;
+        position:absolute;
+        top: -1px;
+        left: -1px;
+        z-index: 2;
+      }
+    }
+    
+    &:disabled + .indicator {
+      background: tint(#000, 85%);
+    }
+  }
+}
+
+label.radio-styled {
+  $size: 14px;
+  position: relative;
+  padding-left: $size + 10px;
+  cursor: pointer;
+  
+  .indicator {
+    display: block;
+    height: $size;
+    width: $size;
+    border-radius: 50%;
+    position: absolute;
+    left:0;
+    top: (20px - $size) / 2 ;
+    border: 1px solid tint(#000, 75%);
+    z-index:1;
+  }
+  
+  input[type=radio] {
+    z-index: -1;
+    position:absolute;
+    opacity: 0;
+    
+    &:checked + .indicator {
+      border: none;
+      &:after {
+        content: "";
+        height: 100%;
+        width: 100%;
+        border-radius: 50%;
+        border-style: solid;
+        border-width:2px;
+        display: block;
+        position:absolute;
+        top: 0;
+        left: 0;
+        bottom:0;
+        right:0;
+        margin: auto;
+        z-index: 2;
+      }
+      
+      &:before {
+        content: "";
+        height: 6px;
+        width: 6px;
+        border-radius: 50%;
+        display: block;
+        position:absolute;
+        top: 0;
+        left: 0;
+        bottom:0;
+        right:0;
+        margin: auto;
+        z-index: 3;
+      }
+    }
+    
+    &:disabled + .indicator {
+      background: tint(#000, 85%);
+    }
+  }
+}
+
+/* BREADCRUMB
+------------------------------------- */
+.breadcrumb {
+  background: none;
+  padding: 0;
+  font-size: 0.9em;
+  
+  a {
+    color: skin-color(primary);
+    
+    &:hover {
+      color: skin-color(primary-d);
+    }
+  }
+}
+
+/* PAGINATION
+------------------------------------- */
+.pagination {
+  > li {
+    > a {
+      color: skin-color(text);
+    }
+    
+    &.active > a {
+      border:1px solid transparent;
+      background: skin-color(primary);
+    }
+  }
+}
