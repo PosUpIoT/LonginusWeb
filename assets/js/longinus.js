@@ -5,6 +5,7 @@ $( document ).ready(function() {
   {
   	var term = $('#search').val();
   	var cat = $("#search-category option:selected" ).val();
+  	var type = $("input[name=searchType]:checked").val();
   	var properties = [];
   	var common_elements = $('.category-property input[type=text]');
   	$(common_elements).each(function( index ) {
@@ -38,7 +39,7 @@ $( document ).ready(function() {
   	$.ajax({
 	  url: "/index.php/feed/search",
       type: 'POST',
-      data: { properties: properties} ,
+      data: { term: term, type: type, category: cat, properties: properties} ,
       contentType: 'application/json; charset=utf-8',
       success:function(data) {
       	alert(data); 

@@ -6,7 +6,12 @@
 	.content {
 		padding-top: 5px !important;
 	}
-
+	.form-group{
+		display: block;
+	    position: relative;
+	    height: 100%;
+	    min-height: 30px;
+	}
 </style>
 
 <div class="container">
@@ -28,8 +33,17 @@
                 	<input class="form-control" name="search" id="search" type="text" placeholder="Search anything..." style="width:100%;">
 			    </div>
 			  </div>
-			  <br>
-			  <br>
+		      <div class="form-group">
+			    <div class="col-sm-10">
+			    	<label for="disabledTextInput">Search Type:</label><br>
+			    	<label class="radio-inline">
+					  <input type="radio" name="searchType" id="searchType1" value="found" checked="checked"> Found
+					</label>
+					<label class="radio-inline">
+					  <input type="radio" name="searchType" id="searchType2" value="lost"> Lost
+					</label>
+			    </div>
+			  </div>
 		      <div class="form-group">
 			    <div class="col-sm-10">
 	            	<select name="category" id="search-category" class="form-control">
