@@ -3,7 +3,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Picture_model extends CI_Model {
 
-	
+		public function insert_picture($data) {
+		$this->db->insert('pictures', $data);
+	}
 
 }
 

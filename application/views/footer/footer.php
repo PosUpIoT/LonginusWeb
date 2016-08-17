@@ -14,10 +14,10 @@
 		<script src="<?php echo base_url(); ?>/assets/bootstrap/js/bootstrap.min.js"></script>
 		<script src="<?php echo base_url(); ?>/assets/js/masonry.pkgd.min.js"></script>
 		<script src="<?php echo base_url(); ?>/assets/js/uikit.js"></script>
-		<script type="text/javascript" src="/assets/js/select2.min.js"></script>
-		<script type="text/javascript" src="/assets/js/jquery-mask.min.js"></script>
-    	<script src="<?=base_url('/assets/js/longinus.js');?>"></script>
-		<script src="<?php echo base_url(); ?>/assets/js/style-switcher.js"></script>
+		<script src="<?php echo base_url(); ?>/assets/js/select2.min.js"></script>
+		<script src="<?php echo base_url(); ?>/assets/js/jquery-mask.min.js"></script>
+		<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAUnXuX1iMr2vg58cd0CMcuIVx4nDjI5Bk&signed_in=true"></script>
+    	<script src="<?php echo base_url(); ?>/assets/js/longinus.js"></script>
 		<!-- /Scripts -->
 		
 	</body>
