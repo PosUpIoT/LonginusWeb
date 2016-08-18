@@ -45,13 +45,15 @@ class Post_model extends CI_Model {
 	public function recent_post()
 	{
 		$pos = $this->geolocate();
-
+		
 	}
 
 
 
 	public function geolocate()
 	{
+
+
 		$url = "http://ip-api.com/json";
 		$ch = curl_init();
 		curl_setopt($ch, CURLOPT_URL, $url);
@@ -63,6 +65,7 @@ class Post_model extends CI_Model {
 		curl_close($ch);
 		$response_a = json_decode($response);
 		return array('lat'=> $response_a->lat, 'lng'=>$response_a->lon);
+
 	}
 
 
@@ -73,7 +76,7 @@ class Post_model extends CI_Model {
 			$max_distance = round(($data['rad']/1000),2);
 			$params[] = array('distance'=>$max_distance.'km');
 			//aux fields categories.name, post_category_data.value as property_value, category_properties.property_name
-			$query = $this->db->distinct()->select('SQL_CALC_FOUND_ROWS posts.id, posts.title, posts.type, posts.description,  posts.status, posts.latitude, posts.longitude, categories.name as category, posts.create_date, users.name as user, users.email, ( 6371 * acos( cos( radians('.$data['lat'].') ) * cos( radians( posts.latitude ) ) * cos( radians( posts.longitude ) - radians('.$data['lng'].') ) + sin( radians('.$data['lat'].') ) * sin( radians( posts.latitude ) ) ) ) AS distance', FALSE)->from('posts')
+			$query = $this->db->distinct()->select('SQL_CALC_FOUND_ROWS posts.id, posts.title, posts.type, posts.description, pictures.path, posts.status, posts.latitude, posts.longitude, categories.name as category, posts.create_date, users.name as user, users.email, ( 6371 * acos( cos( radians('.$data['lat'].') ) * cos( radians( posts.latitude ) ) * cos( radians( posts.longitude ) - radians('.$data['lng'].') ) + sin( radians('.$data['lat'].') ) * sin( radians( posts.latitude ) ) ) ) AS distance', FALSE)->from('posts')
 			->join('users', 'posts.id_user = users.id', 'inner')
 			->join('categories', 'posts.id_category = categories.id', 'inner')
 			->join('post_category_data', 'post_category_data.id_post = posts.id', 'inner')

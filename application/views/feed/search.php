@@ -51,7 +51,7 @@
                                 <!-- unimedia -->
                                 <div class="unimedia-cell">
                                     <div class="unimedia-img">
-                                        <a href="post.html" class="img-link"><img src="<?=base_url("/assets/images/story2.jpg")?>" alt="" /></a>
+                                        <a href="post.html" class="img-link"><img src="<?php echo $post['path'] ?>" alt="" /></a>
                                     </div>
                                 </div>
                                 <div class="unimedia-cell cell-max">

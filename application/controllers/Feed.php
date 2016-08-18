@@ -144,10 +144,11 @@ Class Feed extends CI_Controller{
 		//exit(json_encode($posts));
 	}
 
-	public function flatparam($params)
-	{
 
-		return;
+	public function recent_post()
+	{
+		$this->load->model('post_model');
+		$this->post_model->recent_post();
 	}
 }
 ?>
