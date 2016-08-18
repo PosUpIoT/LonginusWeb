@@ -4,25 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Post_model extends CI_Model {
 
 	/** 
-		//km = 6371 //mi = 3959
-		//location[lon], location[lat], location[rad]
-		/**
-		//SEM CALCULO DISTANCIA
-		SELECT posts.title, posts.type, posts.description, posts.status, posts.latitude, posts.longitude, posts.create_date, users.name, users.email, categories.name, post_category_data.value as property_value, category_properties.property_name  FROM faculdade.posts 
-		left join users on posts.id_user = users.id 
-		left join categories on posts.id_category = categories.id
-		left join post_category_data on posts.id = post_category_data.id_post
-		left join category_properties on post_category_data.id_category_properties = category_properties.id;
 
-
-		MINHA CASA: -25.4114733,-49.2619154
-	    MUSEU DO OLHO: -25.4102	-49.267
-		//COM CALCULO DE DISTANCIA
-		SELECT * FROM faculdade.posts;SELECT posts.id, posts.title, posts.type, posts.description, posts.status, posts.latitude, posts.longitude, posts.create_date, users.name, users.email, categories.name, post_category_data.value as property_value, category_properties.property_name, ( 6371 * acos( cos( radians(-25.4114733) ) * cos( radians( posts.latitude ) ) * cos( radians( posts.longitude ) - radians(-49.2619154) ) + sin( radians(-25.4114733) ) * sin( radians( posts.latitude ) ) ) ) AS distance  FROM faculdade.posts 
-		left join users on posts.id_user = users.id 
-		left join categories on posts.id_category = categories.id
-		left join post_category_data on posts.id = post_category_data.id_post
-		left join category_properties on post_category_data.id_category_properties = category_properties.id HAVING distance < 5;
 
 	**/
 
@@ -44,8 +26,48 @@ class Post_model extends CI_Model {
 
 	public function recent_post()
 	{
+
+		$max_distance = 30;
 		$pos = $this->geolocate();
-		
+		//aux fields categories.name, post_category_data.value as property_value, category_properties.property_name
+		$query = $this->db->distinct()->select('SQL_CALC_FOUND_ROWS posts.id, posts.title, posts.type, posts.description, pictures.path, posts.status, posts.latitude, posts.longitude, categories.name as category, posts.create_date, users.name as user, users.email, ( 6371 * acos( cos( radians('.$pos['lat'].') ) * cos( radians( posts.latitude ) ) * cos( radians( posts.longitude ) - radians('.$pos['lng'].') ) + sin( radians('.$pos['lat'].') ) * sin( radians( posts.latitude ) ) ) ) AS distance', FALSE)->from('posts')
+				->join('users', 'posts.id_user = users.id', 'inner')
+				->join('categories', 'posts.id_category = categories.id', 'inner')
+				->join('post_category_data', 'post_category_data.id_post = posts.id', 'inner')
+				->join('category_properties', 'category_properties.id_category = categories.id', 'inner')
+				->join('pictures', 'posts.id = pictures.id_post', 'inner')
+				->where('pictures.highlighted', 1)
+				->where('posts.status !=', 3);
+		$query->having('distance <= '.$max_distance);
+		$rows = $query->order_by('posts.create_date', 'DESC')->limit(10)->get();
+		$results = $rows->result_array();
+		$this->db->flush_cache();
+		return $results;
+	}
+
+	public function feed($per_page, $page){
+		try{
+			$pos = $this->geolocate();
+			//aux fields categories.name, post_category_data.value as property_value, category_properties.property_name
+			$query = $this->db->distinct()->select('SQL_CALC_FOUND_ROWS posts.id, posts.title, posts.type, posts.description, pictures.path, posts.status, posts.latitude, posts.longitude, categories.name as category, posts.create_date, users.name as user, users.email,( 6371 * acos( cos( radians('.$pos['lat'].') ) * cos( radians( posts.latitude ) ) * cos( radians( posts.longitude ) - radians('.$pos['lng'].') ) + sin( radians('.$pos['lat'].') ) * sin( radians( posts.latitude ) ) ) ) AS distance', FALSE)->from('posts')
+					->join('users', 'posts.id_user = users.id', 'inner')
+					->join('categories', 'posts.id_category = categories.id', 'inner')
+					->join('post_category_data', 'post_category_data.id_post = posts.id', 'inner')
+					->join('category_properties', 'category_properties.id_category = categories.id', 'inner')
+					->join('pictures', 'posts.id = pictures.id_post', 'inner')
+					->where('pictures.highlighted', 1)
+					->where('posts.status !=', 3);
+			$rows = $query->order_by('posts.create_date', 'DESC')->limit($per_page, $page)->get();
+			$results = $rows->result_array();
+			$query = $this->db->query('SELECT FOUND_ROWS() AS `Count`');
+			$objCount = $query->result_array();
+			$total = $objCount[0]['Count'];
+			$this->db->flush_cache();
+			return array('results'=>$results, 'total'=> $total);
+		}catch (Exception $e)
+		{
+			return $e->getMessage();
+		}
 	}
 
 
@@ -81,7 +103,7 @@ class Post_model extends CI_Model {
 					->join('category_properties', 'category_properties.id_category = categories.id', 'inner')
 					->join('pictures', 'posts.id = pictures.id_post', 'inner')
 					->where('pictures.highlighted', 1)
-					->where('posts.status', 0);
+					->where('posts.status !=', 3);
 
 			$keywords = explode(' ', $data['q']);
 			foreach ($keywords as $keyword)
@@ -120,6 +142,7 @@ class Post_model extends CI_Model {
 			->join('pictures', 'posts.id = pictures.id_post', 'inner')
 			->where('posts.type', intval($data['searchType']))
 			->where('pictures.highlighted', 1)
+			->where('posts.status !=', 3)
 			->having('distance <= '.$max_distance);
 			if(isset($data['category']) && $data['category'] != '')
 			{

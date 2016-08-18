@@ -7,9 +7,36 @@ $( document ).ready(function() {
   });
 
 
+if($('.ajax-list').length > 0)
+{
+	$('.ajax-list').each(function( index ) {
+		//$('.class',this)
+		var url = $(this).data('url');
+		var that = this;
+		$.post( url, function(response) {
+			if(response != '')
+			{
+				$('.loading-overlay',that).addClass('hidden');
+				$('.post-list-sm',that).html(response);
+				$('.post-list-sm',that).removeClass('hidden');
+			}else{
+				$('.loading-overlay',that).addClass('hidden');
+				$('.errors',that).html('<p>No posts were found</p>');
+				$('.errors',that).removeClass('hidden');
+			}
+		})
+		.fail(function(err) {
 
-  function setSelect()
-  {
+			$('.loading-overlay',that).addClass('hidden');
+				$('.errors',that).html('<i class="fa fa-warning" style="color:#ee304c;font-size:4em;"></i><p>Loading error!</p>');
+				$('.errors',that).removeClass('hidden');
+			console.log('Error: Loading list was not possible');
+		});
+	});
+}
+
+function setSelect()
+{
   	$("#quick-search").select2({
   	ajax: {
     url: "/index.php/feed/quickSearch",
@@ -50,8 +77,8 @@ $( document ).ready(function() {
   	templateResult: formatRepo, // omitted for brevity, see the source of this page
   	templateSelection: formatRepoSelection // omitted for brevity, see the source of this page
 	});
-  }	  
-  function formatRepo (post) {
+}	  
+	function formatRepo (post) {
       if (post.loading) return post.text;
 
 	  var markup;
@@ -82,7 +109,7 @@ $( document ).ready(function() {
 			window.location.href = '/post/show/'+post.id;
 			$("#quick-search").empty().trigger('change');
 		}
-    }
+	}
 
   
 
@@ -171,6 +198,10 @@ $( document ).ready(function() {
 	  $('#collapseExample').on('show.bs.collapse', function () {
 	    mapSearch();
 	  });
+
+
+	
+
 });
 
 function mapSearch() {

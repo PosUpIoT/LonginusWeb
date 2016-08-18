@@ -22,7 +22,7 @@
 			$this->load->helper('url');
 			$t = base_url(uri_string());
 			if(strpos($t, "feed/search") === false) {
-				echo '<a data-toggle="collapse" data-target="#collapseExample" aria-expanded="false"  aria-controls="collapseExample" style="float:right;"><i class="fa fa-filter"></i> &nbsp; &nbsp;<span>Advanced Search</span></a>';
+				echo '<a data-toggle="collapse" class="btn btn-primary btn-sm" data-target="#collapseExample" aria-expanded="false"  aria-controls="collapseExample" style="float:right;margin:5px;"><i class="fa fa-filter"></i> &nbsp; &nbsp;<span>Advanced Search</span></a>';
 			}
 		?>
 	</div>

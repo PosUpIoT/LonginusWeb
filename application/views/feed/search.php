@@ -90,36 +90,39 @@
         </div>
         <!-- /Main Col -->
 
-        <!-- Side Col -->
-        <div class="col-md-4 side-col">
+    <!-- Side Col -->
+    <div class="col-md-4 side-col">
 
-            <!-- unicard -->
-            <div class="unicard unicard-framed pad-20">
+      <!-- unicard -->
+      <div class="unicard unicard-framed pad-20 ajax-list" data-url="/index.php/feed/recent_post">
 
-                <button class="btn btn-block btn-primary btn-pad-lg" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Search Again</button>
-                <div class="unicard-header bd-b">
-                    <h4 class="fw-bold case-u unicard-title">Recent <span class="fg-primary">posts</span></h4>
-                </div>
-                <ul style="margin-top: 5px;" class="unimedia-list post-list-sm">
-                    <!-- 7x -->
-                    <li>
-                        <div class="unimedia-cell cell-max">
-                            <h4 class="unimedia-title fw-normal"><a href="post.html" class="fw-normal">Kanye Launches Personal Time Capsule Into Space As "Gift To Aliens"</a></h4>
-                        </div>
-                        <div class="unimedia-cell">
-                            <div class="unimedia-img">
-                                <img src="http://facul.app/assets/images/story2.jpg" alt="">
-                            </div>
-                        </div>
-                    </li>
-
-                </ul>
-
-            </div>
-            <!--/unicard -->
-
+        <div class="unicard-header bd-b">
+          <h4 class="fw-bold case-u unicard-title">Recent <span class="fg-primary">in your area</span></h4>
         </div>
-        <!-- /Side Col -->
+        <ul style="margin-top: 5px;" class="unimedia-list post-list-sm hidden">
+          <!-- 7x -->
+
+
+        </ul>
+        <style>
+          .loading-overlay{
+            width: 100%;
+            min-height: 300px;
+            text-align: center;
+            padding-top: 100px;
+          }
+        </style>
+        <div class="loading-overlay">
+          <i class="fa fa-circle-o-notch fa-spin" style="font-size: 3em;"></i>
+        </div>
+        <div class="errors hidden" style="text-align: center;padding-top: 100px;padding-bottom: 100px;">
+        </div>
+
+      </div>
+      <!--/unicard -->
+
+    </div>
+    <!-- /Side Col -->
 
     </div>
     <!-- /Row -->

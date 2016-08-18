@@ -3,6 +3,25 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 Class Feed extends CI_Controller{
 
+		/**
+			Instrução para testes do trabalho do Grupo 4 (implementação da busca e feed)
+			1. Garanta que o url do projeto (config.php - variável $config['base_url']) está correta - indicio que não está: assets não encontrados no load
+			2. Garanta que você rodou o comando composer install na raiz do projeto para instalar os pacotes necessários para que o projeto rode - os pacotes Faker (para gerar falsas informações para testes) e Gravatar (associar imagens de avatar aos usuarios) foram instalados
+			3. Rode o arquivo public/sql/longinus.sql para criação de tabelas
+			4. Rode os caminhos /category/seed e /post/seed para que sejam criados a massa de dados de teste
+			5. Thats it!
+
+			//OUTRAS CONSIDERAÇÔES
+			Raio para busca padrão 30km (para pesquisa avançada é possível alterar tanto o posicionamento quanto o raio)
+			post.status = 1 (publicado)
+			post.status = 2 (finalizado)
+			post.status = 3 (bloqueado)
+			//km = 6371 //mi = 3959
+			MINHA CASA: -25.4114733,-49.2619154
+		    MUSEU DO OLHO: -25.4102	-49.267
+
+		**/
+
 	public function __construct() {
 		parent:: __construct();
 		$this->load->helper("url");
@@ -11,11 +30,45 @@ Class Feed extends CI_Controller{
 
 	public function index(){
 
+		//$this->output->enable_profiler(TRUE);
 		$this->load->model('category_model');
 		$categories = $this->category_model->getCategories();
+		$config = array();
+		$config["per_page"] = 10;
+		$CI =& get_instance();
+		$url = $CI->config->site_url($CI->uri->uri_string());
+		$config["first_url"] = base_url() . "index.php/feed";
+		$config['reuse_query_string'] = TRUE;
+		$config['prefix'] = 'feed/';
+		$config['full_tag_open'] = "<ul class='pagination'>";
+		$config['enable_query_strings'] = TRUE;
+		$config['query_string_segment'] = 'page';
+		$config['full_tag_close'] ="</ul>";
+		$config['num_tag_open'] = '<li>';
+		$config['num_tag_close'] = '</li>';
+		$config['cur_tag_open'] = "<li class='disabled'><li class='active'><a href='#'>";
+		$config['cur_tag_close'] = "<span class='sr-only'></span></a></li>";
+		$config['next_tag_open'] = "<li>";
+		$config['next_tagl_close'] = "</li>";
+		$config['prev_tag_open'] = "<li>";
+		$config['prev_tagl_close'] = "</li>";
+		$config['first_tag_open'] = "<li>";
+		$config['first_tagl_close'] = "</li>";
+		$config['last_tag_open'] = "<li>";
+		$config['last_tagl_close'] = "</li>";
+		$page = ($this->uri->segment(2)) ? $this->uri->segment(2) : 0;
+		$this->load->model('post_model');
+		$res = $this->post_model->feed($config["per_page"], $page);
+		$data["results"] = $res['results'];
+		$data['total'] = $res['total'];
+		$config["total_rows"] = $res['total'];
+		$this->pagination->initialize($config);
+		$data["links"] = $this->pagination->create_links();
+		$config["base_url"] = base_url() . "index.php/feed";
+		$this->load->model('category_model');
 		$this->load->view("header/header");
 		$this->load->view("header/advanced-search", ['categories'=>$categories]);
-		$this->load->view("feed/feed");
+		$this->load->view("feed/feed",array('data'=>$data));
 		$this->load->view("footer/footer");	
 	}
 
@@ -50,11 +103,6 @@ Class Feed extends CI_Controller{
 	public function getCategoryProperties()
 	{
 
-		/**
-  					<div class="form-group"><label for="exampleInputPassword1">Password</label>
-				    <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Password">
-				  </div>
-		**/
 		$category = $this->input->get('category');
 		$this->load->model('category_model');
 		$properties =  $this->category_model->getProperties($category);
@@ -96,16 +144,6 @@ Class Feed extends CI_Controller{
 
 	public function search()
 	{
-		/**
-			Instrução para testes do trabalho do Grupo 4 (implementação da busca e feed)
-			1. Garanta que o url do projeto (config.php - variável $config['base_url']) está correta - indicio que não está: assets não encontrados no load
-			2. Garanta que você rodou o comando composer install na raiz do projeto para instalar os pacotes necessários para que o projeto rode - os pacotes Faker (para gerar falsas informações para testes) e Gravatar (associar imagens de avatar aos usuarios) foram instalados
-			3. Rode o arquivo public/sql/longinus.sql para criação de tabelas
-			4. Rode os caminhos /category/seed e /post/seed para que sejam criados a massa de dados de teste
-			5. Thats it!
-		**/
-
-
 		//$this->output->enable_profiler(TRUE);
 		$config = array();
 		$config["per_page"] = 5;
@@ -171,7 +209,18 @@ Class Feed extends CI_Controller{
 	public function recent_post()
 	{
 		$this->load->model('post_model');
-		$this->post_model->recent_post();
+		$result = $this->post_model->recent_post();
+		$items = '';
+		if(count($result))
+		{
+			foreach ($result as $key => $post) {
+				$items .= '<li><div class="unimedia-cell cell-max"><h4 class="unimedia-title fw-normal">';
+				$items .= '<a href="/post/show/'.$post['id'].'" class="fw-normal">'.$post['title'].'</a></h4></div>';
+				$items .= '<div class="unimedia-cell"><div class="unimedia-img"><img src="'.$post['path'].'" alt=""></div></div></li>';
+			}
+		}
+		header('Content-Type: application/json');
+		exit(json_encode($items));
 	}
 }
 ?>
