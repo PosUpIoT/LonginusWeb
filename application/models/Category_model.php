@@ -29,7 +29,7 @@ Class Category_model extends CI_Model{
 
 	public function new_category_property($data)
 	{
-		$this->db->insert('post_category_data', $data);
+		$this->db->insert('category_properties', $data);
 	}	
 }
 ?>
