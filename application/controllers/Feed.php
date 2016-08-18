@@ -119,6 +119,7 @@ Class Feed extends CI_Controller{
 			$config["total_rows"] = $res['total'];
 			$this->pagination->initialize($config);
 			$data["links"] = $this->pagination->create_links();
+			$data['parameters'] = $res["params"];
 			$config["base_url"] = base_url() . "index.php/feed/search";
 			$this->load->model('category_model');
 			$categories = $this->category_model->getCategories();
@@ -143,5 +144,10 @@ Class Feed extends CI_Controller{
 		//exit(json_encode($posts));
 	}
 
+	public function flatparam($params)
+	{
+
+		return;
+	}
 }
 ?>

@@ -9,18 +9,33 @@
             <!-- Unicard -->
             <div class="unicard unicard-framed pad-20 mgb-30">
                 <?php 
-                    if(isset($data['results']))
-                    {
+                    if(isset($data['results'])):
 
                 ?>
                 <div class="unicard-header bd-b">
                     <h4 class="fw-bold case-u unicard-title">Search <span class="fg-primary">results</span></h4>
-                    <div class="fg-text-l unicard-subtitle">Found <?php echo $data['total'] ?> results</div>
+                    <div class="fg-text-l unicard-subtitle">Found <?php echo $data['total'] ?> results<br></div>
+                    
+                                <?php
+                                if(isset($data['parameters'])){
+
+                                    echo '<h5 class="fw-bold case-u unicard-title">Parameters: <br><ul>';
+                                    foreach($data['parameters'] as $key=>$param)
+                                    {
+                                        foreach($param as $key2=>$param2)
+                                        {
+                                            echo '<li>'.$key2.':'.$param2.'</li>';
+                                        }
+                                    }
+                                    echo '</ul>';
+                                }
+                                ?>
+                    </h5>
                 </div>
                 <!-- post list -->
                 <?php 
 
-                    }
+                    endif;
                 ?>
 
                 <?php

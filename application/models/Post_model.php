@@ -69,7 +69,9 @@ class Post_model extends CI_Model {
 	public function advanced_search($data, $per_page, $page)
 	{
 		try{
+			$params = [];
 			$max_distance = round(($data['rad']/1000),2);
+			$params[] = array('distance'=>$max_distance.'km');
 			//aux fields categories.name, post_category_data.value as property_value, category_properties.property_name
 			$query = $this->db->distinct()->select('SQL_CALC_FOUND_ROWS posts.id, posts.title, posts.type, posts.description,  posts.status, posts.latitude, posts.longitude, categories.name as category, posts.create_date, users.name as user, users.email, ( 6371 * acos( cos( radians('.$data['lat'].') ) * cos( radians( posts.latitude ) ) * cos( radians( posts.longitude ) - radians('.$data['lng'].') ) + sin( radians('.$data['lat'].') ) * sin( radians( posts.latitude ) ) ) ) AS distance', FALSE)->from('posts')
 			->join('users', 'posts.id_user = users.id', 'inner')
@@ -83,10 +85,12 @@ class Post_model extends CI_Model {
 			if(isset($data['category']) && $data['category'] != '')
 			{
 				$query->where('categories.name', $data['category']);
+				$params[] = array('category'=>$data['category']);
 			}
 			if(isset($data['search']) && $data['search'] != '')
 			{
 				$query->like('posts.title', $data['search'])->like('posts.description', $data['search'])->like('users.email', $data['search'])->like('users.name', $data['search']);
+				$params[] = array('term'=>$data['search']);
 			}
 			if(isset($data['properties']))
 			{
@@ -101,6 +105,7 @@ class Post_model extends CI_Model {
 								//category_properties.property_name
 								//post_category_data.value as property_value
 								$query->like('category_properties.property_name', $property['property'])->like('post_category_data.value', $property['value']);
+								$params[] = array($property['property']=>$property['value']);
 								if(isset($property['subproperties']))
 								{
 									foreach ($property['subproperties'] as $key2 => $subproperty) {
@@ -111,10 +116,12 @@ class Post_model extends CI_Model {
 												foreach ($subproperty['value'] as $key3 => $subproperty_val) {
 
 													$query->like('post_category_data.value', '"'.$subproperty['name'].'":"'.$subproperty_val.'"');
+													$params[] = array($subproperty['name']=>$subproperty_val);
 
 												}
 											}else{
 												$query->like('post_category_data.value', '"'.$subproperty['name'].'":"'.$subproperty['value'].'"');
+												$params[] = array($subproperty['name']=>$subproperty['value']);
 											}
 										}
 									}
@@ -130,7 +137,7 @@ class Post_model extends CI_Model {
 			$objCount = $query->result_array();
 			$total = $objCount[0]['Count'];
 			$this->db->flush_cache();
-			return array('results'=>$results, 'total'=> $total);
+			return array('results'=>$results, 'total'=> $total,'params'=>$params);
 		}catch (Exception $e)
 		{
 			return $e->getMessage();
