@@ -81,9 +81,9 @@ class Post extends CI_Controller {
 					//sex
 					if($this->faker->boolean(50))
 					{
-						$this->category_model->new_category_property(array('id_category_properties'=>5,'id_post'=>$id, 'value'=> 'male'));
+						$this->category_model->new_category_data(array('id_category_properties'=>5,'id_post'=>$id, 'value'=> 'male'));
 					}else{
-						$this->category_model->new_category_property(array('id_category_properties'=>5,'id_post'=>$id, 'value'=> 'female'));
+						$this->category_model->new_category_data(array('id_category_properties'=>5,'id_post'=>$id, 'value'=> 'female'));
 					}
 				}
 				if($this->faker->boolean(40))
@@ -91,28 +91,28 @@ class Post extends CI_Controller {
 					//skin
 					if($this->faker->boolean(33))
 					{
-						$this->category_model->new_category_property(array('id_category_properties'=>6,'id_post'=>$id, 'value'=> 'black'));
+						$this->category_model->new_category_data(array('id_category_properties'=>6,'id_post'=>$id, 'value'=> 'black'));
 					}else if($this->faker->boolean(33)){
-						$this->category_model->new_category_property(array('id_category_properties'=>6,'id_post'=>$id, 'value'=> 'caucasian'));
+						$this->category_model->new_category_data(array('id_category_properties'=>6,'id_post'=>$id, 'value'=> 'caucasian'));
 					}else{
-						$this->category_model->new_category_property(array('id_category_properties'=>6,'id_post'=>$id, 'value'=> 'yellow'));
+						$this->category_model->new_category_data(array('id_category_properties'=>6,'id_post'=>$id, 'value'=> 'yellow'));
 					}
 				}
 				if($this->faker->boolean(40))
 				{
 					//age
-					$this->category_model->new_category_property(array('id_category_properties'=>7,'id_post'=>$id, 'value'=> 'black'));
+					$this->category_model->new_category_data(array('id_category_properties'=>7,'id_post'=>$id, 'value'=> 'black'));
 				}
 				if($this->faker->boolean(30))
 				{
 					//height	
-					$this->category_model->new_category_property(array('id_category_properties'=>8,'id_post'=>$id, 'value'=> $this->faker->randomFloat(2,1.30, 1.9)));
+					$this->category_model->new_category_data(array('id_category_properties'=>8,'id_post'=>$id, 'value'=> $this->faker->randomFloat(2,1.30, 1.9)));
 				}
 
 			}else if($cat == 2){
 				//vehicles
 				//Plate
-				$this->category_model->new_category_property(array('id_category_properties'=>3,'id_post'=>$id, 'value'=>
+				$this->category_model->new_category_data(array('id_category_properties'=>3,'id_post'=>$id, 'value'=>
 					strtoupper($this->faker->randomLetter.$this->faker->randomLetter.$this->faker->randomLetter). '-'. $this->faker->randomNumber(4)));
 				//Type
 					$type = $this->vehicle_type[$this->faker->numberBetween(0,2)];
@@ -122,7 +122,7 @@ class Post extends CI_Controller {
 							$color = $this->faker->safeColorName;
 							//Brand
 							$brand = $this->car_brands[$this->faker->numberBetween(0,3)];
-							$this->category_model->new_category_property(array('id_category_properties'=>2,'id_post'=>$id, 
+							$this->category_model->new_category_data(array('id_category_properties'=>2,'id_post'=>$id, 
 								'value'=> json_encode(['type'=>$type,'brand'=>$brand,'color'=>$color ])
 							));
 							break;
@@ -132,14 +132,14 @@ class Post extends CI_Controller {
 							$color = $this->faker->safeColorName;
 							//Brand
 							$brand = $this->moto_brands[$this->faker->numberBetween(0,2)];
-							$this->category_model->new_category_property(array('id_category_properties'=>2,'id_post'=>$id, 
+							$this->category_model->new_category_data(array('id_category_properties'=>2,'id_post'=>$id, 
 								'value'=> json_encode(['type'=>$type,'brand'=>$brand,'color'=>$color ])
 							));
 							break;
 
 						case 'other':
 							# code...
-							$this->category_model->new_category_property(array('id_category_properties'=>2,'id_post'=>$id, 
+							$this->category_model->new_category_data(array('id_category_properties'=>2,'id_post'=>$id, 
 								'value'=>  json_encode(['type'=>$type])
 							));
 							break;
@@ -153,7 +153,7 @@ class Post extends CI_Controller {
 							$color = $this->faker->safeColorName;
 							//Breed
 							$breed = $this->dog_breeds[$this->faker->numberBetween(0,2)];
-							$this->category_model->new_category_property(array('id_category_properties'=>1,'id_post'=>$id, 'value'=>
+							$this->category_model->new_category_data(array('id_category_properties'=>1,'id_post'=>$id, 'value'=>
 								json_encode(['type'=>$type,'breed'=>$breed,'color'=>$color ])
 							));
 							break;
@@ -161,20 +161,20 @@ class Post extends CI_Controller {
 						case 'cat':
 							//Color
 							$color = $this->faker->safeColorName;
-							$this->category_model->new_category_property(array('id_category_properties'=>1,'id_post'=>$id, 'value'=>
+							$this->category_model->new_category_data(array('id_category_properties'=>1,'id_post'=>$id, 'value'=>
 								json_encode(['type'=>$type,'color'=>$color])
 							));
 							break;
 						case 'bird':
 							//Color
 							$color = $this->faker->safeColorName;
-							$this->category_model->new_category_property(array('id_category_properties'=>1,'id_post'=>$id, 'value'=>
+							$this->category_model->new_category_data(array('id_category_properties'=>1,'id_post'=>$id, 'value'=>
 								json_encode(['type'=>$type,'color'=>$color])
 							));
 							break;
 						case 'other':
 							# code...
-							$this->category_model->new_category_property(array('id_category_properties'=>1,'id_post'=>$id, 'value'=>
+							$this->category_model->new_category_data(array('id_category_properties'=>1,'id_post'=>$id, 'value'=>
 								json_encode(['type'=>$type])
 							));
 							break;
