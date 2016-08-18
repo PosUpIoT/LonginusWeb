@@ -68,6 +68,42 @@ class Post_model extends CI_Model {
 
 	}
 
+	public function quick_search($data, $per_page, $page)
+	{
+		try{
+			$max_distance = 30;
+			$pos = $this->geolocate();
+			//aux fields categories.name, post_category_data.value as property_value, category_properties.property_name
+			$query = $this->db->distinct()->select('SQL_CALC_FOUND_ROWS posts.id, posts.title, posts.type, posts.description, pictures.path, posts.status, posts.latitude, posts.longitude, categories.name as category, posts.create_date, users.name as user, users.email, ( 6371 * acos( cos( radians('.$pos['lat'].') ) * cos( radians( posts.latitude ) ) * cos( radians( posts.longitude ) - radians('.$pos['lng'].') ) + sin( radians('.$pos['lat'].') ) * sin( radians( posts.latitude ) ) ) ) AS distance', FALSE)->from('posts')
+					->join('users', 'posts.id_user = users.id', 'inner')
+					->join('categories', 'posts.id_category = categories.id', 'inner')
+					->join('post_category_data', 'post_category_data.id_post = posts.id', 'inner')
+					->join('category_properties', 'category_properties.id_category = categories.id', 'inner')
+					->join('pictures', 'posts.id = pictures.id_post', 'inner')
+					->where('pictures.highlighted', 1)
+					->where('posts.status', 0);
+
+			$keywords = explode(' ', $data['q']);
+			foreach ($keywords as $keyword)
+			{
+				$keyword = trim($keyword);
+				$query->like('posts.title', $keyword);
+				$query->or_like('post_category_data.value',  $keyword);
+			}
+
+			$query->having('distance <= '.$max_distance);
+			$rows = $query->limit($per_page, $page)->get();
+			$results = $rows->result_array();
+			$query = $this->db->query('SELECT FOUND_ROWS() AS `Count`');
+			$objCount = $query->result_array();
+			$total = $objCount[0]['Count'];
+			$this->db->flush_cache();
+			return array('results'=>$results, 'total'=> $total);
+		}catch (Exception $e)
+		{
+			return $e->getMessage();
+		}
+	}
 
 	public function advanced_search($data, $per_page, $page)
 	{

@@ -134,6 +134,10 @@ $("body").on("click", "[data-ctoggle]", function(e) {
     if(argStr) {
       $target = target ? $(target) : $el;
       $target.addClass("toggling").toggleClasses(argStr);
+      if(argStr == "unhide-search")
+      {
+        $("#quick-search").trigger('cssClassChanged');
+      }
       var dur = parseInt($el.attr("data-duration")) || duration;
 
       setTimeout(function() {

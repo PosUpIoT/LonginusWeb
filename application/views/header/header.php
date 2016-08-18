@@ -59,18 +59,125 @@
         
         <!-- nav block -->
         <div class="unibar-block nav-block bg-inherit">
-        
+          <style>
+
+          </style>
           <!-- nav cell -->
+          <style>
+              .search-box .select2-container{
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                height: 34px;
+                margin: auto 0;
+                display: block;
+              }
+
+              .select2-result-repository__avatar {
+                  float: left;
+                  width: 60px;
+                  margin-right: 10px;
+              }
+
+              .select2-results__option--highlighted .select2-result-repository__description {
+                  color: #c6dcef;
+              }
+              .select2-result-repository__description {
+                  font-size: 13px;
+                  color: #777;
+                  margin-top: 4px;
+              }
+
+              .select2-results__option--highlighted .select2-result-repository__title {
+                  color: white;
+              }
+
+              .select2-result-repository__title {
+                  color: black;
+                  font-weight: bold;
+                  word-wrap: break-word;
+                  line-height: 1.1;
+                  margin-bottom: 4px;
+              }
+
+              .select2-result-repository__meta {
+                  margin-left: 70px;
+              }
+              .select2-result-repository__avatar img {
+                  width: 100%;
+                  height: auto;
+                  border-radius: 2px;
+                  max-width: 60px;
+                  max-height: 60px;
+              }
+
+              .search-box  .select2-container .select2-selection--multiple {
+                  box-sizing: border-box;
+                  cursor: pointer;
+                  display: block;
+                  min-height: 34px;
+                  user-select: none;
+                  -webkit-user-select: none;
+              }
+              .search-box .select2-container--default .select2-selection--multiple {
+                  background-color: white;
+                  border: 1px solid #aaa;
+                  border-radius: 0px;
+                  cursor: text;
+              }
+
+              .search-box .select2-container--default .select2-search--inline .select2-search__field 
+              {
+
+                  padding: 10px;
+                  margin: 0;
+              }
+
+              .search-box .select2-dropdown{
+                 border: rgba(0, 0, 0, 0.1);
+              }
+
+              .search-box .select2-container--default.select2-container--focus .select2-selection--multiple{
+                  border: none;
+                  height: 34px;
+                  width: 100%;
+                  color: #666;
+                  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1), 0 0 2px 1px rgba(0, 0, 0, 0.1);
+                  border-radius: 0;
+              }
+              .search-box .select2-search__field{
+                width: 100% !important;
+              }
+              .search-box .select2-search--inline:after{
+                content: '\f002';
+                color:#ee304c;
+                    display: inline-block;
+                  font: normal normal normal 14px/1 FontAwesome;
+                  font-size: 20px;
+                  text-rendering: auto;
+                  -webkit-font-smoothing: antialiased;
+                      position: absolute;
+                      right: 10px;
+                      top:6px;
+              }
+          </style>
           <div class="unibar-cell nav-cell cell-max">
-          
-            <!-- unibar search -->
+            <form class="unibar-search" method="post" action="<?=base_url('index.php/feed/quickSearch')?>">
+              <div class="search-box">
+                  <select id="quick-search" data-placeholder="Type to start searching our database" style="width: 60%;" class="text-box js-data-example-ajax" multiple="multiple">
+                    
+                  </select>
+              </div>
+            </form>
+
+            <!-- unibar search 
             <form class="unibar-search" method="post" action="<?=base_url('index.php/feed/quickSearch')?>">
               <div class="search-box">
                 <input class="text-box" name="search" type="text" placeholder="Search anything...">
                 <button type="button" class="btn btn-primary case-u"><i class="fa-search mgr-5"></i>search</button>
               </div>
             </form>
-            <!-- /unibar search -->
+             /unibar search -->
             
             <!-- mobile quick links -->
             <div class="visible-sm visible-xs">

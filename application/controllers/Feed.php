@@ -21,8 +21,30 @@ Class Feed extends CI_Controller{
 
 	public function quickSearch()
 	{
-		$search_term = $this->input->post('search');
-		//TODO:search query matheus
+		//$this->output->enable_profiler(TRUE);
+		$config = array();
+		$config["per_page"] = 20;
+		$CI =& get_instance();
+    	$url = $CI->config->site_url($CI->uri->uri_string());
+		$config['reuse_query_string'] = TRUE;
+		$config['prefix'] = 'feed/quickSearch/';
+		$config['enable_query_strings'] = TRUE;
+		$config['query_string_segment'] = 'page';
+		$page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+		$query_data = $this->input->get();
+		if(count($query_data))
+		{
+			$this->load->model('post_model');
+			$res = $this->post_model->quick_search($query_data, $config["per_page"], $page);
+			$data["results"] = $res['results'];
+			$data['total'] = $res['total'];
+			$config["total_rows"] = $res['total'];
+			$this->pagination->initialize($config);
+			$config["base_url"] = base_url() . "index.php/feed/search";
+			echo json_encode($data);
+		}else{
+			echo json_encode(array());
+		}
 	}
 
 	public function getCategoryProperties()
@@ -84,6 +106,7 @@ Class Feed extends CI_Controller{
 		**/
 
 
+		//$this->output->enable_profiler(TRUE);
 		$config = array();
 		$config["per_page"] = 5;
 		$CI =& get_instance();

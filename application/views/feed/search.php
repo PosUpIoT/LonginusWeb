@@ -51,12 +51,12 @@
                                 <!-- unimedia -->
                                 <div class="unimedia-cell">
                                     <div class="unimedia-img">
-                                        <a href="post.html" class="img-link"><img src="<?php echo $post['path'] ?>" alt="" /></a>
+                                        <a href="<?php echo '/post/show/'.$post['id'] ?>" class="img-link"><img src="<?php echo $post['path'] ?>" alt="" /></a>
                                     </div>
                                 </div>
                                 <div class="unimedia-cell cell-max">
                                     <h5 class="unimedia-subtitle fg-accent hidden-xs"><a href="#"><?php echo $post['user'] ?></a></h5>
-                                    <h4 class="unimedia-title"><a href="post.html"><?php echo $post['title'] ?></a></h4>
+                                    <h4 class="unimedia-title"><a href="<?php echo '/post/show/'.$post['id'] ?>"><?php echo $post['title'] ?></a></h4>
                                     <div class="unimeta post-meta hidden-xs">
                                         <span><i class="ti-time fg-text-l"></i><?php echo $post['create_date'] ?></span>
                                         <span><i class="ti-comment-alt fg-text-l"></i>XX comments</span>

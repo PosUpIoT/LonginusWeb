@@ -1,6 +1,91 @@
 
 $( document ).ready(function() {
   $.ajaxSetup({async:false});
+
+  $("#quick-search").bind('cssClassChanged', function(){ 
+  	setSelect();
+  });
+
+
+
+  function setSelect()
+  {
+  	$("#quick-search").select2({
+  	ajax: {
+    url: "/index.php/feed/quickSearch",
+    dataType: 'json',
+    delay: 400,
+    minimumResultsForSearch: -1,
+    allowClear: false,
+		pagination: {
+			more: true
+		},
+    placeholder: function(){
+        $(this).data('placeholder');
+    },
+    data: function (params) {
+      return {
+        q: params.term, // search term
+        page: params.page
+      };
+    },
+    processResults: function (data, params) {
+      // parse the results into the format expected by Select2
+      // since we are using custom formatting functions we do not need to
+      // alter the remote JSON data, except to indicate that infinite
+      // scrolling can be used
+      params.page = params.page || 1;
+
+      return {
+        results: data.results,
+        pagination: {
+          more: (params.page * 20) < data.total
+        }
+      };
+    },
+    cache: true
+  	},
+  	escapeMarkup: function (markup) { return markup; }, // let our custom formatter work
+  	minimumInputLength: 3,
+  	templateResult: formatRepo, // omitted for brevity, see the source of this page
+  	templateSelection: formatRepoSelection // omitted for brevity, see the source of this page
+	});
+  }	  
+  function formatRepo (post) {
+      if (post.loading) return post.text;
+
+	  var markup;
+	  markup = "<div class='select2-result-repository clearfix'>" +
+			  "<div class='select2-result-repository__avatar'><img src='" + post.path + "' /></div>" +
+			  "<div class='select2-result-repository__meta'>" +
+			  "<div class='select2-result-repository__title'>" + post.title + "</div>";
+
+
+	  if (post.description) {
+		  var valor;
+		  if (post.description.length > 80) {
+			  valor  = post.description.substring(0, 80) + "…";
+		  }else{
+			  valor = post.description;
+		  }
+		  markup += "<div class='select2-result-repository__description'>" + valor + "</div>";
+	  }
+
+	  markup += "</div></div>";
+
+      return markup;
+    }
+
+    function formatRepoSelection (post) {
+		if(post.id != undefined)
+		{
+			window.location.href = '/post/show/'+post.id;
+			$("#quick-search").empty().trigger('change');
+		}
+    }
+
+  
+
   $('#adv-search').submit(function(e) {
 	var self = this;
   	var term = $('#search').val();
