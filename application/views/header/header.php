@@ -6,7 +6,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>CardPost - Home Version 1</title>
+    <title>Longinus Web</title>
 
     <!-- Bootstrap core CSS -->
     <link href="<?=base_url('/assets/bootstrap/css/bootstrap.min.css');?>" rel="stylesheet">
@@ -14,7 +14,7 @@
     <!-- Custom styles for this template -->
     <link href="<?=base_url('/assets/css/uikit.css');?>" rel="stylesheet">
 
-	<link rel="stylesheet" href="/assets/css/select2.min.css" type="text/css"/>
+	<link rel="stylesheet" href="<?=base_url('/assets/css/select2.min.css');?>" type="text/css"/>
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -34,10 +34,6 @@
         <!-- header block -->
         <div class="unibar-block header-block bg-primary hide-border">
         
-          <!-- brand cell -->
-          <div class="unibar-cell menucon-cell">
-            <a href="#" class="menucon morphs" data-ctoggle="unhide" data-target="#fullmenu"><span></span></a>
-          </div>
           <!-- /brand cell -->
 
           <!-- brand cell -->
@@ -184,9 +180,14 @@
             
               <!-- uninav -->
               <ul class="uninav unibar-uninav uninav-fga-primary uninav-fillh auto-invert case-u fw-bold text-center">
-                <li class="active"><a href="index.html">home</a></li>
-                <li><a href="#">latest</a></li>
-                <li><a href="#" data-ctoggle="unhide" data-target="#menu-col1">more<i class="fs-80 ti-plus dd-icon toggled-rotz-135"></i></a>
+                <li class="active"><a href="index.html">Principal</a></li>
+                <li><a href="#">Recentes</a></li>
+                <li><a href="#" data-ctoggle="unhide" data-target="#menu-col1">Mais<i class="fs-80 ti-plus dd-icon toggled-rotz-135"></i></a>
+                <?php if(!$this->session->has_userdata('logged_in')  || $this->session->userdata('logged_in') == FALSE ){ ?>
+                <li><a href="<?php  echo base_url('/index.php/home/login'); ?>" style="color:white;">Login</a></li>
+                <?php }else{ ?>
+                    <li><a href="#"><?php echo $this->session->userdata('name'); ?></a></li>
+                 <?php }  ?>
               </ul>
               <!-- /uninav -->
             
@@ -198,14 +199,13 @@
             
               <!-- uninav -->
               <ul class="uninav unibar-uninav uninav-fga-primary uninav-fillh auto-invert case-u fw-bold">
-                <li class="active"><a href="index.html">home</a></li>
-                <li><a href="index-2.html">home II</a></li>
-                <li class="dropdown"><a href="#" data-toggle="dropdown">pages<i class="fs-80 ti-plus dd-icon open-rotz-135"></i></a>
+                <li class="active"><a href="index.html">Principal</a></li>
+                <li class="dropdown"><a href="#" data-toggle="dropdown">Categorias<i class="fs-80 ti-plus dd-icon open-rotz-135"></i></a>
                   <ul class="dropdown-menu dropdown-right case-c">
                     <li class="active"><a href="index.html">Home Version 1</a></li>
                     <li><a href="index-2.html">Home Version 2</a></li>
                     <li><a href="post.html">Post View</a></li>
-                    <li><a href="search.html">Search Results</a></li>
+                    <li><a href="search.html">Search Results</a><x/li>
                     <li class="divider"></li>
                     <li><a href="index.php/home/login">Sign In page</a></li>
                     <li><a href="register.html">Sign Up page</a></li>
@@ -215,6 +215,11 @@
                     <li><a href="features.html">Selected Features</a></li>
                   </ul>
                 </li>
+                <?php if($this->session->has_userdata('logged_in')  && $this->session->userdata('logged_in') == TRUE ){ ?>
+                <li><a href="index-2.html">Perdeu?</a></li>
+                <li class="hidden-lg hidden-md"><a href="post.html">Perfil</a></li>
+                <li class="hidden-lg hidden-md"><a href="<?php  echo base_url('/index.php/user/logout') ?>">Logout</a></li>
+                <?php } ?>
               </ul>
               <!-- /uninav -->
             
@@ -226,125 +231,21 @@
           
           <!-- cell -->
           <div class="unibar-cell hidden-xs hidden-sm cell-min case-u">
-            Sunday, July 3, 2016
+            <?php if(!$this->session->has_userdata('logged_in')  || $this->session->userdata('logged_in') == FALSE ){ ?>
+            <a class="btn btn-primary" href="<?php  echo base_url('/index.php/home/login') ?>" style="color:white;">Login</a>
+            <?php }else{ ?>
+                <a href="#" data-toggle="dropdown"><?php echo $this->session->userdata('name'); ?><i class="fs-80 ti-plus dd-icon open-rotz-135"></i></a>
+                 <ul class="dropdown-menu dropdown-right case-c">
+                    <li><a href="post.html">Perfil</a></li>
+                    <li><a href="<?php  echo base_url('/index.php/user/logout') ?>">Logout</a></li>
+                  </ul>
+             <?php }  ?>
           </div>
           <!-- /cell -->
           
         </div>
         <!-- /nav block -->
 
-        <!-- mega menu -->
-        <div id="fullmenu" class="mega-menu efx-slide-down">
-
-          <!-- Cont -->
-          <div class="menu-cont">
-          
-            <!-- Col -->
-            <div class="cont-col nav-col bg-primary-d">
-            
-              <ul class="uninav uninav-v uninav-inverse uninav-lline uninav-bga-accent-xl uninav-fga-accent-xl uninav-default case-u uninav-ruled">
-                <li><a href="#">home</a></li>
-                <li><a href="#">videos</a></li>
-                <li><a href="#">photos</a></li>
-                <li><a href="#">trending</a></li>
-                <li><a href="#">photos</a></li>
-                <li><a href="#">music</a></li>
-                <li><a href="#">technology</a></li>
-                <li><a href="#">celebrities</a></li>
-                <li><a href="#">fashion</a></li>
-                <li><a href="#">television</a></li>
-              </ul>
-              
-            </div>
-            <!-- /Col -->
-            
-            <!-- Col -->
-            <div class="cont-col extras-col hidden-xs">
-            
-              <!-- extras block -->
-              <div class="extras-block">
-              
-                <h5>top stories</h5>
-
-                <!-- row -->
-                <div class="row">
-
-                  <!-- col -->
-                  <div class="col-sm-3">
-
-                    <div class="post-img mgb-10">
-                      <a href="#" class="img-link"><img src="<?=base_url('/assets/images/story2.jpg');?>" alt="" /></a>
-                    </div>
-                    <h6 class="post-title case-c"><a href="#">Kanye Launches Personal Time Capsule Into Space As "Gift To Aliens"</a></h6>
-
-                  </div>
-                  <!-- /col -->
-                  
-                  <!-- col -->
-                  <div class="col-sm-3">
-
-                    <div class="post-img mgb-10">
-                      <a href="#" class="img-link"><img src="<?=base_url('/assets/images/story3.jpg');?>" alt="" /></a>
-                    </div>
-                    <h6 class="post-title case-c"><a href="#">Beautiful woman has no incentive to be less annoying</a></h6>
-
-                  </div>
-                  <!-- /col -->
-                  
-                  <!-- col -->
-                  <div class="col-sm-3">
-
-                    <div class="post-img mgb-10">
-                      <a href="#" class="img-link"><img src="<?=base_url('/assets/images/story5.jpg');?>" alt="" /></a>
-                    </div>
-                    <h6 class="post-title case-c"><a href="#">This Melbourne Cafe Is Now Selling Deconstructed Irony</a></h6>
-
-                  </div>
-                  <!-- /col -->
-                  
-                  <!-- col -->
-                  <div class="col-sm-3">
-
-                    <div class="post-img mgb-10">
-                      <a href="#" class="img-link"><img src="<?=base_url('/assets/images/story10.jpg');?>" alt="" /></a>
-                    </div>
-                    <h6 class="post-title case-c"><a href="#">Whoops! Reality TV Contestant Goes To Air Without A Backstory</a></h6>
-
-                  </div>
-                  <!-- /col -->
-
-                </div>
-                <!-- /row -->
-
-              </div>
-              <!-- /extras block -->
-            
-              <!-- extras block -->
-              <div class="extras-block">
-              
-                <h5>popular tags</h5>
-                
-                <ul class="unitags">
-                  <li><a href="#">kardashians (634)</a></li>
-                  <li><a href="#">trump (220)</a></li>
-                  <li><a href="#">bieber (180)</a></li>
-                  <li><a href="#">kanye west (98)</a></li>
-                  <li><a href="#">kylie jenner (74)</a></li>
-                  <li><a href="#">blac chyna (61)</a></li>
-                  <li><a href="#">nba finals (59)</a></li>
-                  <li><a href="#">Amber Heard (34)</a></li>
-                </ul>
-                
-              </div>
-              <!-- /extras block -->
-            
-            </div>
-            <!-- /Col -->
-          
-          </div>
-          <!-- /Cont -->
-          
-        </div>
         <!-- /mega menu -->
 
       </div>

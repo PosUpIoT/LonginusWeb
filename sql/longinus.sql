@@ -120,10 +120,12 @@ CREATE TABLE `users` (
   `name` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
   `facebook` varchar(255) DEFAULT NULL,
-  `google` varchar(255) DEFAULT NULL,
-  `twitter` varchar(255) DEFAULT NULL,
+  `social_network_id` varchar(255) DEFAULT NULL,
+  `social_network_access_token` varchar(255) DEFAULT NULL,
   `password` varchar(255) NOT NULL,
   `phone` varchar(255) NOT NULL,
+  `provider` varchar(255) NOT NULL,
+  `avatar` varchar(255) NOT NULL,
   `create_date` datetime NOT NULL,
   `update_date` datetime DEFAULT NULL,
   `delete_date` datetime DEFAULT NULL
@@ -133,9 +135,9 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `role`, `name`, `email`, `facebook`, `google`, `twitter`, `password`, `phone`, `create_date`, `update_date`, `delete_date`) VALUES
-(1, 2, 'admin', 'admin@admin.com', NULL, NULL, NULL, 'dccd96c256bc7dd39bae41a405f25e43', '4199999999', '2016-07-16 00:00:00', NULL, NULL),
-(2, 1, 'João', 'joao@outlook.com', '', '', '', '72b302bf297a228a75730123efef7c41', '4188888888', '2016-07-16 14:23:33', NULL, NULL);
+INSERT INTO `users` (`id`, `role`, `name`, `email`, `facebook`, `password`, `phone`, `create_date`, `update_date`, `delete_date`, `provider`) VALUES
+(1, 2, 'admin', 'admin@admin.com', NULL, 'dccd96c256bc7dd39bae41a405f25e43', '4199999999', '2016-07-16 00:00:00', NULL, NULL,'internal'),
+(2, 1, 'João', 'joao@outlook.com', NULL, '72b302bf297a228a75730123efef7c41', '4188888888', '2016-07-16 14:23:33', NULL, NULL,'internal');
 
 --
 -- Indexes for dumped tables
