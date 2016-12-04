@@ -65,7 +65,41 @@ class User_model extends CI_Model {
 		}catch(Exception $e){
 			return $e;
 		}
+	}
 
+	public function insert_friendship($user, $friend)
+	{
+		$user_exists = $this->check_social_network_exists($user, 'facebook');
+		$friend_exists = $this->check_social_network_exists($friend, 'facebook');
+
+		if($user_exists && $friend_exists) {
+			$user_data = $this->get_user_by_facebook_id($user);
+			$friend_data = $this->get_user_by_facebook_id($friend);
+
+			if(!$this->check_friendship($user_data['id'], $friend_data['id'])) {
+				$friendship1 = [
+					'user_id' => $user_data['id'],
+					'friend_id' => $friend_data['id'],
+					'create_date' => date('Y-m-d H:i:s')
+				];
+
+				$this->db->insert('user_friends', $friendship1);
+			}
+
+			if(!$this->check_friendship($friend_data['id'], $user_data['id'])) {
+				$friendship2 = [
+					'user_id' => $friend_data['id'],
+					'friend_id' => $user_data['id'],
+					'create_date' => date('Y-m-d H:i:s')
+				];
+
+				$this->db->insert('user_friends', $friendship2);
+			}
+
+			return TRUE;
+		}
+
+		return FALSE;
 	}
 
 	public function login($email, $password) {
@@ -100,10 +134,23 @@ class User_model extends CI_Model {
 	    }
 	}
 
+	public function check_friendship($userId, $friendId)
+	{
+		$data = array('user_id' => $userId, 'friend_id' => $friendId);
+		$query = $this->db->get_where('user_friends', $data);
+
+	    if($query->num_rows() == 1) {
+	        return TRUE;
+	    } else {
+	        return FALSE;
+	    }
+	}
+
 	public function check_social_network_exists($id,$provider)
 	{
 		$data = array('social_network_id' => $id,'provider'=>$provider);
 		$query = $this->db->get_where('users', $data);
+
 	    if($query->num_rows() == 1)
 	    {
 	        return TRUE;
@@ -112,6 +159,13 @@ class User_model extends CI_Model {
 	    {
 	        return FALSE;
 	    }
+	}
+
+	public function get_user_by_facebook_id($facebook_id)
+	{
+		$data = array('social_network_id' => $facebook_id, 'provider'=>'facebook');
+		$query = $this->db->get_where('users', $data);
+		return $query->row_array();
 	}
 
 	public function logout() {

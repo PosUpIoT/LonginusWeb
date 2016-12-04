@@ -7,7 +7,7 @@ class User extends CI_Controller {
 		parent::__construct();
 
         // initiate faker
-        $this->faker = Faker\Factory::create();
+        //$this->faker = Faker\Factory::create();
 		$this->load->model('user_model');
 	}
 
@@ -48,19 +48,26 @@ class User extends CI_Controller {
 		if ($this->facebook->is_authenticated()  && $this->session->has_userdata('logged_in') == FALSE)
 		{
 			// User logged in, get user details
-			$user = $this->facebook->request('get', '/me?fields=name,birthday,location,email,friends.limit(8),id');
-
-			//$this->facebook->destroy_session();
+			$user = $this->facebook->request('get', '/me?fields=name,birthday,location,email,id');
 
 			if (!isset($user['error']))
 			{
 				$data['user'] = $user;
+				
 				$retorno = $this->user_model->facebook_login($user, $this->facebook->is_authenticated());				
 				if($retorno == true)
 				{
-					//redirect('/home');
+					$friends = $this->facebook->request('get', '/me/friends');
+
+					if (!isset($friends['error'])) {
+						foreach ($friends['data'] as $friend) {
+							$this->user_model->insert_friendship($user['id'], $friend['id']);
+						}
+					}
+
+					redirect('home');
 					$this->session->set_flashdata('message', 'Usuário registrado com sucesso!');
-					redirect('/home/login');
+					redirect('home/login');
 				}else{
 					$this->session->set_flashdata('message', $e);
 					

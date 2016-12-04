@@ -17,11 +17,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |  facebook_graph_version        string   Set Facebook Graph version to be used. Eg v2.6
 |  facebook_auth_on_load         boolean  Set to TRUE to have the library to check for valid access token on every page load.
 */
-$config['facebook_app_id']              = '164322174036087';
-$config['facebook_app_secret']          = 'bfebfffe8fa0002d027bd43b91740cfc';
+$config['facebook_app_id']              = '496578167198983';
+$config['facebook_app_secret']          = 'f6bd050e67f93b93e0d30916492eb268';
 $config['facebook_login_type']          = 'web';
-$config['facebook_login_redirect_url']  = '/index.php/user/facebook_auth';
-$config['facebook_logout_redirect_url'] = '/index.php/user/facebook_logout';
+$config['facebook_login_redirect_url']  = 'index.php/user/facebook_auth';
+$config['facebook_logout_redirect_url'] = 'index.php/user/facebook_logout';
 $config['facebook_permissions']         = array('public_profile', 'email', 'user_friends');
 $config['facebook_graph_version']       = 'v2.6';
 $config['facebook_auth_on_load']        = TRUE;
